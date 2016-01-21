@@ -8,5 +8,5 @@ router.get('/', function(req, res, next) {
 
 module.exports = router;
 
-module.exports.testString = "Hello World";
+module.exports.testString = "HelloWorld";
 
