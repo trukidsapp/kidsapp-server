@@ -4,10 +4,9 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var test = require('./routes/test.js');
 
 var app = express();
-
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
