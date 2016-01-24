@@ -24,6 +24,7 @@ start() {
   echo $USER >&2
   echo $RUNAS >&2
   if [ "$USER" = "$RUNAS" ]; then
+    echo 'same user' >&2
     `$CMD & echo $!` 
   else
      su -c "$CMD" $RUNAS > "$PIDFILE"
