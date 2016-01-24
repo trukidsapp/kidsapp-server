@@ -21,7 +21,11 @@ start() {
   fi
   echo 'Starting service…' >&2
   local CMD="$SCRIPT &> \"$LOGFILE\" & echo \$!"
-  su -c "$CMD" $RUNAS > "$PIDFILE"
+  if [ $USER = $RUNAS] then
+    `$CMD & echo $!` 
+  else
+     su -c "$CMD" $RUNAS > "$PIDFILE"
+  fi
   echo 'Service started' >&2
 }
 
