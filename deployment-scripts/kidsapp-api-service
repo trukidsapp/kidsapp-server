@@ -8,7 +8,6 @@
 # Description:       Node.js REST API backend for kids app
 ### END INIT INFO
 
-SCRIPT="nohup node /home/kidsApp/kidsapp-api/app.js &>/dev/null &"
 RUNAS=teamcity_user
 
 PIDFILE=/var/run/kidsapp-api-service.pid
@@ -20,9 +19,7 @@ start() {
     return 1
   fi
   echo 'Starting service…' >&2
-  local CMD="$SCRIPT &> \"$LOGFILE\" & echo \$!"
-  $CMD echo $! > "$PIDFILE"
-  #su -c "$CMD" $RUNAS > "$PIDFILE"
+  nohup node /home/kidsApp/kidsapp-api/app.js &>/dev/null &> $LOGFILE & echo $! > "$PIDFILE"
   echo 'Service started' >&2
 }
 
