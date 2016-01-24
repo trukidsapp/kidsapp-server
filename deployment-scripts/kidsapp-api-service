@@ -21,6 +21,8 @@ start() {
   fi
   echo 'Starting service…' >&2
   local CMD="$SCRIPT &> \"$LOGFILE\" & echo \$!"
+  echo $USER >&2
+  echo $RUNAS >&2
   if [ "$USER" = "$RUNAS" ]; then
     `$CMD & echo $!` 
   else
