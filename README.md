@@ -2,13 +2,13 @@
 
 REST API backend for Kids App
 
-## Starting the API server
-With the kidsapp-api-service installed in the init.d scripts directory, the server can be started by running:
+## Starting and stopping the API server
 
-```service kidsapp-api-service start```
+PM2 (https://github.com/Unitech/pm2) is used to manage the node process. With PM2 installed, from the directory the server is located in, the server can be started by running:
 
-## Stopping the API server
-The server can be started by running:
+```pm2 start app.js --name kidsapp-api```
 
-```service kidsapp-api-service stop```
+The server can be stopped by running:
+
+```pm2 stop kidsapp-api```
 
