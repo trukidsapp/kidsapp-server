@@ -8,7 +8,7 @@
 # Description:       Node.js REST API backend for kids app
 ### END INIT INFO
 
-SCRIPT="nohup node /home/kidsApp/kidsapp-api/app.js &"
+SCRIPT="nohup node /home/kidsApp/kidsapp-api/app.js &>/dev/null &"
 RUNAS=teamcity_user
 
 PIDFILE=/var/run/kidsapp-api-service.pid
