@@ -48,3 +48,5 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+
+app.listen(8080); // TODO 8080 is temporary
