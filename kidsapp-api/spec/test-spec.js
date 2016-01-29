@@ -1,8 +1,7 @@
-var test = require("../routes/test");
+var test = require("../routes/test.js");
 
 describe("test files can find app code", function () {
 	it("should say hello", function () {
-		var string = test.testString;
-		expect(string).toBe("Hello World");
+		expect(test.get).toBe(undefined);
 	});
 });    
