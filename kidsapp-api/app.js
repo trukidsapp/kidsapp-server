@@ -28,13 +28,14 @@ router.get('/students', require('./routes/student.js').get);
 router.post('/students', require('./routes/student.js').post);
 
 models.sequelize.query('SET FOREIGN_KEY_CHECKS = 0').then(function() {
-  models.sequelize.sync({force: true}).then(function () {
-    // todo 8080 is temporary
-    var server = app.listen(8080, function () {
-      console.log("API server listening on port " + server.address().port);
-    });
-  }).error(function (err) {
+  models.sequelize.sync({force: true}).then(startServer).error(function (err) {
     console.log(err);
   });
-
 });
+
+function startServer() {
+  // todo 8080 is temporary
+  var server = app.listen(8080, function () {
+    console.log("API server listening on port " + server.address().port);
+  });
+}

@@ -29,7 +29,6 @@ module.exports.post = function(req, res) {
       .error(function (err) {
         console.log(err);
         res.status(400).json({message: "invalid student format"});
-
       });
   }
   catch(e) {
