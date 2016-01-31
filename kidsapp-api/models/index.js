@@ -16,7 +16,7 @@ var database = 'kidsappdb';
 var user = 'root';
 var password = '';
 var dbhost = 'localhost';
-var dbport = process.env.KIDSAPP_DB_PORT;
+var dbport = 3306;
 
 var sequelize = new Sequelize(database, user, password, {
   host : dbhost,
