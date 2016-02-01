@@ -2,16 +2,12 @@
 
 module.exports = function (sequelize, DataTypes) {
   var Class = sequelize.define("Class", {
-    classId : {
-      type : DataTypes.INTEGER,
-      allowNull : false
-    },
     className : {
       type : DataTypes.STRING,
       allowNull : false
     },
     grade : {
-      type : DataTypes.STRING,
+      type : DataTypes.INTEGER,
       allowNull : false
     }
   }, {
