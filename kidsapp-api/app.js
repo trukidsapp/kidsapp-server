@@ -9,7 +9,7 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8081;
+var port = process.env.RESTPORT;
 
 var router = express.Router();
 
@@ -24,4 +24,4 @@ app.use('/api', router);
 router.get('/test', require('./routes/test.js').get);
 
 
-app.listen(8080); // TODO 8080 is temporary
+app.listen(port);
