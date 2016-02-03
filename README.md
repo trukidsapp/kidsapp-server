@@ -15,3 +15,5 @@ The server can be stopped by running:
 ## Environment variables
 
 ```RESTPORT``` Port number for the API to listen for requests on 
+```MYSQLDBACNT``` Database username
+```MYSQLDBPW``` Database password
