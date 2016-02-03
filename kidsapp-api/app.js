@@ -23,5 +23,4 @@ app.use('/api', router);
 // routes
 router.get('/test', require('./routes/test.js').get);
 
-
 app.listen(port);
