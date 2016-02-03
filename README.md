@@ -12,3 +12,6 @@ The server can be stopped by running:
 
 ```pm2 stop kidsapp-api```
 
+## Environment variables
+
+```RESTPORT``` Port number for the API to listen for requests on 
