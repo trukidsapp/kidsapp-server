@@ -12,7 +12,7 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-//var port = process.env.PORT || 8081;
+var port = process.env.RESTPORT || 8080;
 
 var router = express.Router();
 
@@ -34,8 +34,8 @@ models.sequelize.query('SET FOREIGN_KEY_CHECKS = 0').then(function() {
 });
 
 function startServer() {
-  // todo 8080 is temporary
-  var server = app.listen(8080, function () {
+
+  var server = app.listen(port, function () {
     console.log("API server listening on port " + server.address().port);
   });
 }

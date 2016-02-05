@@ -11,7 +11,6 @@ var Sequelize = require('sequelize');
 var basename  = path.basename(module.filename);
 var db        = {};
 
-// TODO hide db conifg
 var database = 'kidsappdb';
 var user = process.env.MYSQLDBACNT;
 var password = process.env.MYSQLDBPW;
