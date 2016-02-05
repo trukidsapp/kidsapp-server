@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
+var models = require("./models");
 
 var app = express();
 
@@ -21,6 +22,17 @@ app.use('/api', router);
 
 
 // routes
-router.get('/test', require('./routes/test.js').get);
+router.get('/students', require('./routes/student.js').get);
+router.post('/students', require('./routes/student.js').post);
 
-app.listen(port);
+models.sequelize.query('SET FOREIGN_KEY_CHECKS = 0').then(function() {
+  models.sequelize.sync({force: true}).then(startServer).error(function (err) {
+    console.log(err);
+  });
+});
+
+function startServer() {
+  var server = app.listen(port, function () {
+    console.log("API server listening on port " + server.address().port);
+  });
+}
