@@ -13,8 +13,8 @@ var db        = {};
 
 // TODO hide db conifg
 var database = 'kidsappdb';
-var user = 'root';
-var password = '';
+var user = process.env.MYSQLDBACNT;
+var password = process.env.MYSQLDBPW;
 var dbhost = 'localhost';
 var dbport = 3306;
 
