@@ -17,8 +17,35 @@ The server can be stopped by running:
 ```RESTPORT``` Port number for the API to listen for requests on 
 ```MYSQLDBACNT``` Database username
 ```MYSQLDBPW``` Database password
+```KIDSAPPTOKENKEY``` Key for signing JSON Web Tokens
+
+## Authentication
+
+All routes require a token obtained after successfully authenticating with the API as follows:
+ 
+```
+POST http://hostname:port/api/authenticate
+{
+	"username" : "mrahman",
+	"password" : "password123",
+	"userType" : "teacher"
+} 
+```
+
+If your credentials are correct, the response will contain the token:
+
+```
+200 OK
+{
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InN0ZXZlMiIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE0NTQ2NDgwNzgsImV4cCI6MTQ1NDY5MTI3OH0.02e-AVwszPBKMp-78ubmnujkmkKk1Rov1LCYM09m4sY"
+}
+```
+
+This token must be passed in an `api-token` header with any subsequent requests to the API.
+
 
 ## Routes
+All require a token (see above) for authentication.
 
 ###Student
 

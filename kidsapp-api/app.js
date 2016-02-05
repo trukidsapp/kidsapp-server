@@ -1,7 +1,10 @@
+'use strict';
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var models = require("./models");
+
 
 var app = express();
 
@@ -14,19 +17,20 @@ var port = process.env.RESTPORT || 8080;
 
 var router = express.Router();
 
-router.use(function(req, res, next) {
-	next();
-});
+// route to authenticate with token
+router.post("/authenticate", require('./routes/authenticate.js').post);
 
-app.use('/api', router);
+// check token passed with requests
+router.use(require('./tokenValidator.js'));
 
-
-// routes
+// protected routes
 router.get('/students', require('./routes/student.js').get);
 router.post('/students', require('./routes/student.js').post);
 
+app.use('/api', router);
+
 models.sequelize.query('SET FOREIGN_KEY_CHECKS = 0').then(function() {
-  models.sequelize.sync({force: true}).then(startServer).error(function (err) {
+  models.sequelize.sync({force: false}).then(startServer).error(function (err) {
     console.log(err);
   });
 });
