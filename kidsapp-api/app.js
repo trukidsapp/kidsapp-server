@@ -10,7 +10,7 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.RESTPORT;
+var port = process.env.RESTPORT || 8080;
 
 var router = express.Router();
 
