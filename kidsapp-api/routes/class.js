@@ -6,85 +6,124 @@
 var Class = require('../models').Class;
 
 // get all classes
-module.exports.get = function(req, res) {
+module.exports.get = function (req, res) {
 
-    console.log(req.params.id);
+  console.log(req.params.id);
 
-    if(req.params.id != null)
-    {
-        Class.findOne({
-            //include: [ models.Class ]
-            where:{
-                id: req.params.id.substring(1)//class
-            }
-        }).then(function(foundClass) {
-            res.json(foundClass);
-        });
-    }
-    else{
-        Class.findAll({
-            //include: [ models.Class ]
-        }).then(function(classes) {
-            res.json(classes);
-        });
-    }
+  if (req.params.id != null) {
+    Class.findOne({
+      //include: [ models.Class ]
+      where: {
+        id: req.params.id.substring(1)//class
+      }
+    }).then(function (foundClass) {
+      res.json(foundClass);
+    });
+  }
+  else {
+    Class.findAll({
+      //include: [ models.Class ]
+    }).then(function (classes) {
+      res.json(classes);
+    });
+  }
 };
 
 // create a Class
-module.exports.post = function(req, res) {
-    try {
-        var newClassName = req.body.className;
-        var newGrade = req.body.grade;
+module.exports.post = function (req, res) {
+  try {
+    var newClassName = req.body.className;
+    var newGrade = req.body.grade;
 
-        var newClass = Class.build({
-            className: newClassName,
-            grade: newGrade
-        });
-        /*
-        console.log("Inside post.");
-        console.log("Class Name: " + newClassName);
-        console.log("Grade: " + newGrade);*/
+    var newClass = Class.build({
+      className: newClassName,
+      grade: newGrade
+    });
+    /*
+     console.log("Inside post.");
+     console.log("Class Name: " + newClassName);
+     console.log("Grade: " + newGrade);*/
 
-        if(newClassName == null || newGrade == null)
-        {
-            console.log("Null values received.");
-            res.json({message: "Null values received."})
-        }
-        else{
-            newClass.save()
-                .then(function () {
-                    res.json(
-                        {message: "Inserted class successfully"});
-                })
-                .error(function (err) {
-                    console.log(err);
-                    res.status(400).json({message: "Invalid class format"});
-                });
-        }
+    if (newClassName == null || newGrade == null) {
+      console.log("Null values received.");
+      res.json({message: "Null values received."})
     }
-    catch(e) {
-        console.log(e);
-        res.status(400).json({message: "Invalid class format"});
-    }
-};
-
-module.exports.put = function(req, res){
-
-};
-
-module.exports.delete = function(req, res){
-    try{
-        Class.destroy({
-            where:{id: req.params.id.substring(1)}
-        }).then(function(error) {
-            if(error==0)
-                res.json({message:"Class doesn't exist."});
-            else
-                res.json({message:"Class was successfully deleted."})
+    else {
+      newClass.save()
+        .then(function () {
+          res.json(
+            {message: "Inserted class successfully"});
+        })
+        .error(function (err) {
+          console.log(err);
+          res.status(400).json({message: "Invalid class format"});
         });
     }
-    catch(e){
-        console.log(e);
-        res.status(400).json({message:"An error occurred."})
+  }
+  catch (e) {
+    console.log(e);
+    res.status(400).json({message: "Invalid class format"});
+  }
+};
+
+module.exports.put = function (req, res) {
+  try{
+    if(req.body.className!=null){
+      Class.update({
+        className: req.body.className
+      },{
+        where:{id:req.params.id.substring(1)}
+      }).then(function(error){
+        if(error==0)
+          res.json({message: "Class doesn't exist."});
+        else
+          res.json({message: "Class name was updated."});
+      });
     }
+    else if(req.body.grade!=null){
+      Class.update({
+        grade: req.body.grade
+      },{
+        where:{id:req.params.id.substring(1)}
+      }).then(function(error){
+        if(error==0)
+          res.json({message: "Class doesn't exist."});
+        else
+          res.json({message: "Class grade was updated."});
+      });
+    }
+    else if(req.body.TeacherUsername!=null){
+      Class.update({
+        TeacherUsername: req.body.TeacherUsername
+      },{
+        where:{id:req.params.id.substring(1)}
+      }).then(function(error){
+        if(error==0)
+          res.json({message: "Class doesn't exist."});
+        else
+          res.json({message: "Class teacher was updated."});
+      });
+    }
+  }
+  catch(e){
+    console.log(e);
+    res.status(400).json({message: "An error occurred."})
+  }
+};
+
+module.exports.delete = function (req, res) {
+  try {
+    Class.destroy({
+      where: {id: req.params.id.substring(1)}
+    }).then(function (error) {
+      if (error == 0)
+        res.json({message: "Class doesn't exist."});
+      else
+        res.json({message: "Class was successfully deleted."})
+    });
+  }
+  catch(e){
+    console.log(e);
+    res.status(400).json({message: "An error occurred."})
+  }
 };

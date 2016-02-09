@@ -29,8 +29,7 @@ router.get('/classes', require('./routes/class.js').get);
 router.get('/classes:id', require('./routes/class.js').get)
 router.post('/classes', require('./routes/class.js').post);
 router.delete('/classes:id', require('./routes/class.js').delete);
-
-
+router.put('/classes:id', require('./routes/class.js').put);
 
 models.sequelize.query('SET FOREIGN_KEY_CHECKS = 0').then(function() {
   models.sequelize.sync({force: true}).then(startServer).error(function (err) {
