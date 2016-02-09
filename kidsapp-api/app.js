@@ -26,7 +26,9 @@ router.get('/students', require('./routes/student.js').get);
 router.post('/students', require('./routes/student.js').post);
 // Class Routes.
 router.get('/classes', require('./routes/class.js').get);
+router.get('/classes:id', require('./routes/class.js').get)
 router.post('/classes', require('./routes/class.js').post);
+
 
 
 models.sequelize.query('SET FOREIGN_KEY_CHECKS = 0').then(function() {

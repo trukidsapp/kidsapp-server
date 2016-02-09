@@ -7,12 +7,27 @@ var Class = require('../models').Class;
 
 // get all classes
 module.exports.get = function(req, res) {
-    Class.findAll({
-        //include: [ models.Class ]
-    }).then(function(classes) {
-        res.json(classes);
-    });
 
+    console.log(req.params.id);
+
+    if(req.params.id != null)
+    {
+        Class.findOne({
+            //include: [ models.Class ]
+            where:{
+                id: req.params.id.substring(1)//class
+            }
+        }).then(function(classes) {
+            res.json(classes);
+        });
+    }
+    else{
+        Class.findAll({
+            //include: [ models.Class ]
+        }).then(function(classes) {
+            res.json(classes);
+        });
+    }
 };
 
 // create a Class
@@ -51,4 +66,12 @@ module.exports.post = function(req, res) {
         console.log(e);
         res.status(400).json({message: "Invalid class format"});
     }
+};
+
+module.exports.put = function(req, res){
+
+};
+
+module.exports.delete = function(req, res){
+
 };
