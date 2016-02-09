@@ -1,4 +1,4 @@
-var test = require("../routes/test.js");
+var test = require("../routes/test/test.js");
 
 describe("test files can find app code", function () {
 	it("should say hello", function () {
