@@ -28,6 +28,7 @@ router.post('/students', require('./routes/student.js').post);
 router.get('/classes', require('./routes/class.js').get);
 router.get('/classes:id', require('./routes/class.js').get)
 router.post('/classes', require('./routes/class.js').post);
+router.delete('/classes:id', require('./routes/class.js').delete);
 
 
 

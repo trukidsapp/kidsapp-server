@@ -17,8 +17,8 @@ module.exports.get = function(req, res) {
             where:{
                 id: req.params.id.substring(1)//class
             }
-        }).then(function(classes) {
-            res.json(classes);
+        }).then(function(foundClass) {
+            res.json(foundClass);
         });
     }
     else{
@@ -73,5 +73,18 @@ module.exports.put = function(req, res){
 };
 
 module.exports.delete = function(req, res){
-
+    try{
+        Class.destroy({
+            where:{id: req.params.id.substring(1)}
+        }).then(function(error) {
+            if(error==0)
+                res.json({message:"Class doesn't exist."});
+            else
+                res.json({message:"Class was successfully deleted."})
+        });
+    }
+    catch(e){
+        console.log(e);
+        res.status(400).json({message:"An error occurred."})
+    }
 };
