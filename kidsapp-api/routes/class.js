@@ -68,42 +68,22 @@ module.exports.post = function (req, res) {
 
 module.exports.put = function (req, res) {
   try{
-    if(req.body.className!=null){
-      Class.update({
-        className: req.body.className
-      },{
-        where:{id:req.params.id.substring(1)}
-      }).then(function(error){
-        if(error==0)
-          res.json({message: "Class doesn't exist."});
-        else
-          res.json({message: "Class name was updated."});
-      });
-    }
-    else if(req.body.grade!=null){
-      Class.update({
-        grade: req.body.grade
-      },{
-        where:{id:req.params.id.substring(1)}
-      }).then(function(error){
-        if(error==0)
-          res.json({message: "Class doesn't exist."});
-        else
-          res.json({message: "Class grade was updated."});
-      });
-    }
-    else if(req.body.TeacherUsername!=null){
-      Class.update({
+    Class.update(
+      {
+        className: req.body.className,
+        grade: req.body.grade,
         TeacherUsername: req.body.TeacherUsername
-      },{
+      },
+      {
         where:{id:req.params.id.substring(1)}
-      }).then(function(error){
-        if(error==0)
-          res.json({message: "Class doesn't exist."});
-        else
-          res.json({message: "Class teacher was updated."});
+      })
+      .then(function(){
+        res.json({message: "Class updated."});
+      })
+      .error(function(error){
+        res.json({message: "An error occurred"});
+        console.log("Error message:" + error);
       });
-    }
   }
   catch(e){
     console.log(e);
