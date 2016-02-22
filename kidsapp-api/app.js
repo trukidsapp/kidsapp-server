@@ -31,8 +31,8 @@ router.post('/classes', require('./routes/class.js').post);
 router.delete('/classes:id', require('./routes/class.js').delete);
 router.put('/classes:id', require('./routes/class.js').put);
 // Question Routes.
-router.get('/questions', require('./questions/question.js').get);
-router.get('/questions:id', require('./questions/question.js').get);
+router.get('/questions', require('./routes/question.js').get);
+router.get('/questions:id', require('./routes/question.js').get);
 router.post('/questions', require('./routes/question.js').post);
 router.delete('/questions:id', require('./routes/question.js').delete);
 router.put('/questions:id', require('./routes/question.js').put);
