@@ -1,5 +1,3 @@
-'use stict';
-
 module.exports = function(sequelize, DataTypes) {
   var Question = sequelize.define("Question", {
     subject : {
@@ -15,6 +13,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull : false
     },
     type : {
+      type : DataTypes.STRING,
+      allowNull : false
+    },
+    text : {
       type : DataTypes.STRING,
       allowNull : false
     }

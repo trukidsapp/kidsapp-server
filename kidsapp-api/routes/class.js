@@ -68,22 +68,27 @@ module.exports.post = function (req, res) {
 
 module.exports.put = function (req, res) {
   try{
-    Class.update(
-      {
-        className: req.body.className,
-        grade: req.body.grade,
-        TeacherUsername: req.body.TeacherUsername
-      },
-      {
-        where:{id:req.params.id.substring(1)}
-      })
-      .then(function(){
-        res.json({message: "Class updated."});
-      })
-      .error(function(error){
-        res.json({message: "An error occurred"});
-        console.log("Error message:" + error);
-      });
+    if(req.body.className != null && req.body.grade != null){
+      Class.update(
+        {
+          className: req.body.className,
+          grade: req.body.grade,
+          TeacherUsername: req.body.TeacherUsername
+        },
+        {
+          where:{id:req.params.id.substring(1)}
+        })
+        .then(function(){
+          res.json({message: "Class updated."});
+        })
+        .error(function(error){
+          res.json({message: "An error occurred"});
+          console.log("Error message:" + error);
+        });
+    }
+    else
+      res.json({message: "Incorrect number of parameters passed."})
+
   }
   catch(e){
     console.log(e);

@@ -26,10 +26,16 @@ router.get('/students', require('./routes/student.js').get);
 router.post('/students', require('./routes/student.js').post);
 // Class Routes.
 router.get('/classes', require('./routes/class.js').get);
-router.get('/classes:id', require('./routes/class.js').get)
+router.get('/classes:id', require('./routes/class.js').get);
 router.post('/classes', require('./routes/class.js').post);
 router.delete('/classes:id', require('./routes/class.js').delete);
 router.put('/classes:id', require('./routes/class.js').put);
+// Question Routes.
+router.get('/questions', require('./questions/question.js').get);
+router.get('/questions:id', require('./questions/question.js').get);
+router.post('/questions', require('./routes/question.js').post);
+router.delete('/questions:id', require('./routes/question.js').delete);
+router.put('/questions:id', require('./routes/question.js').put);
 
 models.sequelize.query('SET FOREIGN_KEY_CHECKS = 0').then(function() {
   models.sequelize.sync({force: true}).then(startServer).error(function (err) {
