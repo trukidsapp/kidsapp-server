@@ -49,11 +49,11 @@ router.post('/result', require('./routes/result.js').post);
 router.delete('/result:id', require('./routes/result.js').delete);
 router.put('/result:id', require('./routes/result.js').put);
 // Teacher Routes.
-router.get('/teacher', require('./routes/teacher.js').get);
-router.get('/teacher:id', require('./routes/teacher.js').get);
-router.post('/teacher', require('./routes/teacher.js').post);
-router.delete('/teacher:id', require('./routes/teacher.js').delete);
-router.put('/teacher:id', require('./routes/teacher.js').put);
+router.get('/teachers', require('./routes/teacher.js').get);
+router.get('/teachers/:id', require('./routes/teacher.js').get);
+router.post('/teachers', require('./routes/teacher.js').post);
+router.delete('/teachers/:id', require('./routes/teacher.js').delete);
+router.put('/teachers/:id', require('./routes/teacher.js').put);
 // Answer Routes.
 router.get('/answer', require('./routes/answer.js').get);
 router.get('/answer:id', require('./routes/answer.js').get);
@@ -62,7 +62,7 @@ router.delete('/answer:id', require('./routes/answer.js').delete);
 router.put('/answer:id', require('./routes/answer.js').put);
 
 models.sequelize.query('SET FOREIGN_KEY_CHECKS = 0').then(function() {
-  models.sequelize.sync({force: true}).then(startServer).error(function (err) {
+  models.sequelize.sync({force: false}).then(startServer).error(function (err) {
     console.log(err);
   });
 });
