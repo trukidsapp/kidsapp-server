@@ -1,6 +1,3 @@
-/**
- * Created by darkhobbo on 2/8/2016.
- */
 'use strict';
 
 var Class = require('../models').Class;

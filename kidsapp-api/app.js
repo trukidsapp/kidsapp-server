@@ -20,13 +20,12 @@ router.use(function(req, res, next) {
 
 app.use('/api', router);
 
-// TODO /classes/:classId/students
 // Student Routes.
-router.get('/students', require('./routes/student.js').get);
-router.get('/students/:id', require('./routes/student.js').get);
-router.post('/students', require('./routes/student.js').post);
-router.delete('/students/:id', require('./routes/student.js').delete);
-router.put('/students/:id', require('./routes/student.js').put);
+router.get('/classes/:classId/students', require('./routes/student.js').getAll);
+router.get('/classes/:classId/students/:studentId', require('./routes/student.js').getById);
+router.post('/classes/:classId/students', require('./routes/student.js').post);
+router.delete('/classes/:classId/students/:studentId', require('./routes/student.js').delete);
+router.put('/classes/:classId/students/:studentId', require('./routes/student.js').put);
 
 // Class Routes.
 router.get('/classes/', require('./routes/class.js').getAll);
