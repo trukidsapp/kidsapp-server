@@ -20,10 +20,14 @@ router.use(function(req, res, next) {
 
 app.use('/api', router);
 
-
+// TODO /classes/:classId/students
 // Student Routes.
 router.get('/students', require('./routes/student.js').get);
+router.get('/students/:id', require('./routes/student.js').get);
 router.post('/students', require('./routes/student.js').post);
+router.delete('/students/:id', require('./routes/student.js').delete);
+router.put('/students/:id', require('./routes/student.js').put);
+
 // Class Routes.
 router.get('/class', require('./routes/class.js').get);
 router.get('/class:id', require('./routes/class.js').get);
@@ -48,6 +52,8 @@ router.get('/result:id', require('./routes/result.js').get);
 router.post('/result', require('./routes/result.js').post);
 router.delete('/result:id', require('./routes/result.js').delete);
 router.put('/result:id', require('./routes/result.js').put);
+
+// TODO /classes/:classId/teachers
 // Teacher Routes.
 router.get('/teachers', require('./routes/teacher.js').get);
 router.get('/teachers/:id', require('./routes/teacher.js').get);
