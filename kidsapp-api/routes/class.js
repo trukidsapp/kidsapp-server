@@ -25,7 +25,11 @@ module.exports.getById = function(req, res) {
       id: req.params.id//class
     }
   }).then(function (foundClass) {
-    res.json(foundClass);
+    if (foundClass == null) {
+      res.status(404).json({message: "class not found"});
+    }
+    else {
+      res.json(foundClass);
   });
 };
 
