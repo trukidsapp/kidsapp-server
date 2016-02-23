@@ -6,9 +6,7 @@
 var Class = require('../models').Class;
 
 module.exports.getAll = function (req, res) {
-  Class.findAll({
-    //include: [ models.Class ]
-  }).then(function (classes) {
+  Class.findAll({}).then(function (classes) {
     if (classes.length === 0) {
       res.status(404).json({message: "no classes found"});
     }
@@ -20,9 +18,8 @@ module.exports.getAll = function (req, res) {
 
 module.exports.getById = function (req, res) {
   Class.findOne({
-    //include: [ models.Class ]
     where: {
-      id: req.params.id//class
+      id: req.params.id
     }
   }).then(function (foundClass) {
     if (foundClass == null) {
@@ -37,83 +34,80 @@ module.exports.getById = function (req, res) {
 // create a Class
 module.exports.post = function (req, res) {
   try {
-    var newClassName = req.body.className;
-    var newGrade = req.body.grade;
+    if (!req.body.className || !req.body.grade || !req.body.teacherUsername) {
+      res.status(400).json({message: "Invalid class request format."});
+    }
 
     var newClass = Class.build({
-      className: newClassName,
-      grade: newGrade
+      className: req.body.className,
+      grade: req.body.grade,
+      TeacherUsername: req.body.teacherUsername
     });
-    /*
-     console.log("Inside post.");
-     console.log("Class Name: " + newClassName);
-     console.log("Grade: " + newGrade);*/
 
-    if (newClassName == null || newGrade == null) {
-      console.log("Null values received.");
-      res.json({message: "Null values received."});
-    }
-    else {
-      newClass.save()
-        .then(function () {
-          res.json(
-            {message: "Inserted class successfully"});
-        })
-        .error(function (err) {
-          console.log(err);
-          res.status(400).json({message: "Invalid class format"});
-        });
-    }
+    newClass.save()
+      .then(function () {
+        res.json(
+          {message: "Inserted class successfully"});
+      })
+      .error(function (err) {
+        throw err;
+      });
   }
   catch (e) {
-    console.log(e);
-    res.status(400).json({message: "Invalid class format"});
+    console.error(e);
+    res.status(500).json({message: "An error occurred"});
   }
 };
 
 module.exports.put = function (req, res) {
   try {
-    if (req.body.className != null && req.body.grade != null) {
-      Class.update(
-        {
-          className: req.body.className,
-          grade: req.body.grade,
-          TeacherUsername: req.body.TeacherUsername
-        },
-        {
-          where: {id: req.params.id}
-        })
-        .then(function () {
-          res.json({message: "Class updated."});
-        })
-        .error(function (error) {
-          res.json({message: "An error occurred"});
-          console.log("Error message:" + error);
-        });
+    if (!req.body.className || !req.body.grade || !req.body.teacherUsername) {
+      res.status(400).json({message: "Invalid class request format."});
     }
-    else
-      res.json({message: "Incorrect number of parameters passed."});
 
+    Class.update(
+      {
+        className: req.body.className,
+        grade: req.body.grade,
+        TeacherUsername: req.body.teacherUsername
+      },
+      {
+        where: {id: req.params.id}
+      })
+      .then(function (updated) {
+        if (updated > 0) {
+          res.json({message: "Class updated."});
+        }
+        else {
+          res.status(404).json({message: "Class not found"});
+        }
+      })
+      .error(function (err) {
+        throw err;
+      });
   }
   catch (e) {
-    console.log(e);
-    res.status(400).json({message: "An error occurred."});
+    console.error(e);
+    res.status(500).json({message: "An error occurred."});
   }
 };
 
 module.exports.delete = function (req, res) {
   try {
     Class.destroy({
-      where: {id: req.params.id}
-    }).then(function (error) {
-      if (error == 0)
-        res.json({message: "Class doesn't exist."});
-      else
-        res.json({message: "Class was successfully deleted."});
-    });
+        where: {id: req.params.id}
+      })
+      .then(function (result) {
+        if (!result) {
+          res.status(404).json({message: "Class not found"});
+        }
+        else {
+          res.json({message: "Class was successfully deleted."});
+        }
+      });
   }
   catch (e) {
     console.log(e);
-    res.status(400).json({message: "An error occurred."});
+    res.status(500).json({message: "An error occurred."});
   }
 };

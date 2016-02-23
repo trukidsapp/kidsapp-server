@@ -4,7 +4,6 @@ var Teacher = require('../models').Teacher;
 module.exports.get = function (req, res) {
   if (req.params.id) {
     Teacher.findOne({
-      //include: [ models.Teacher ]
       where: {
         username: req.params.id//Teacher
       }
@@ -20,7 +19,6 @@ module.exports.get = function (req, res) {
   }
   else {
     Teacher.findAll({
-      //include: [ models.Teacher ]
     }).then(function (foundTeachers) {
       if (foundTeachers.length === 0) {
         res.status(404).json({message: "no teachers found"});
