@@ -5,28 +5,28 @@
 
 var Class = require('../models').Class;
 
-// get all classes
-module.exports.get = function (req, res) {
-
-  console.log(req.params.id);
-
-  if (req.params.id != null) {
-    Class.findOne({
-      //include: [ models.Class ]
-      where: {
-        id: req.params.id.substring(1)//class
-      }
-    }).then(function (foundClass) {
-      res.json(foundClass);
-    });
-  }
-  else {
+module.exports.getAll = function (req, res) {
     Class.findAll({
       //include: [ models.Class ]
     }).then(function (classes) {
-      res.json(classes);
+      if (classes.length === 0) {
+        res.status(404).json({message: "no classes found"});
+      }
+      else {
+        res.json(classes);
+      }
     });
-  }
+  };
+
+module.exports.getById = function(req, res) {
+  Class.findOne({
+    //include: [ models.Class ]
+    where: {
+      id: req.params.id//class
+    }
+  }).then(function (foundClass) {
+    res.json(foundClass);
+  });
 };
 
 // create a Class
@@ -46,7 +46,7 @@ module.exports.post = function (req, res) {
 
     if (newClassName == null || newGrade == null) {
       console.log("Null values received.");
-      res.json({message: "Null values received."})
+      res.json({message: "Null values received."});
     }
     else {
       newClass.save()
@@ -76,7 +76,7 @@ module.exports.put = function (req, res) {
           TeacherUsername: req.body.TeacherUsername
         },
         {
-          where:{id:req.params.id.substring(1)}
+          where:{id:req.params.id}
         })
         .then(function(){
           res.json({message: "Class updated."});
@@ -87,28 +87,28 @@ module.exports.put = function (req, res) {
         });
     }
     else
-      res.json({message: "Incorrect number of parameters passed."})
+      res.json({message: "Incorrect number of parameters passed."});
 
   }
   catch(e){
     console.log(e);
-    res.status(400).json({message: "An error occurred."})
+    res.status(400).json({message: "An error occurred."});
   }
 };
 
 module.exports.delete = function (req, res) {
   try {
     Class.destroy({
-      where: {id: req.params.id.substring(1)}
+      where: {id: req.params.id}
     }).then(function (error) {
       if (error == 0)
         res.json({message: "Class doesn't exist."});
       else
-        res.json({message: "Class was successfully deleted."})
+        res.json({message: "Class was successfully deleted."});
     });
   }
   catch(e){
     console.log(e);
-    res.status(400).json({message: "An error occurred."})
+    res.status(400).json({message: "An error occurred."});
   }
 };
