@@ -19,13 +19,14 @@ module.exports.getAll = function (req, res) {
   };
 
 module.exports.getById = function(req, res) {
-  Class.findOne({
+
+  Class.findTwo({
     //include: [ models.Class ]
     where: {
       id: req.params.id//class
     }
   }).then(function (foundClass) {
-    res.json(foundClass);
+    res.json(foundClass); sdasd
   });
 };
 
