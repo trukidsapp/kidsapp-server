@@ -2,9 +2,7 @@ var Teacher = require('../models').Teacher;
 
 // get teachers, all and by id
 module.exports.get = function (req, res) {
-  console.log("Inside of teacher route");
-  console.log(req.params.id);
-  if (req.params.id != null) {
+  if (req.params.id) {
     Teacher.findOne({
       //include: [ models.Teacher ]
       where: {
@@ -74,17 +72,20 @@ module.exports.put = function (req, res) {
       {
         where:{username:req.params.id}
       })
-      .then(function(){
-        res.json({message: "Teacher updated."});
-      })
-      .error(function(error){
-        res.json({message: "An error occurred"});
-        console.log("Error message:" + error);
+      .then(function(updated){
+        if (updated > 0) {
+          res.json({message: "Student updated"});
+        }
+        else {
+          res.status(404).json({message:"Student not found"});
+        }
+      }).error(function(err) {
+      throw err;
       });
   }
   catch(e){
     console.log(e);
-    res.status(400).json({message: "An error occurred."})
+    res.status(500).json({message: "An error occurred."})
   }
 };
 module.exports.delete = function (req, res) {
@@ -102,6 +103,6 @@ module.exports.delete = function (req, res) {
   }
   catch(e){
     console.log(e);
-    res.status(400).json({message: "An error occurred."});
+    res.status(500).json({message: "An error occurred."});
   }
 };
