@@ -1,11 +1,8 @@
-/**
- * Created by darkhobbo on 2/22/2016.
- */
-
 var Question = require('../models').Question;
 
 // get all questions
 module.exports.get = function (req, res) {
+  console.log("Inside of question route");
   console.log(req.params.id);
   if (req.params.id != null) {
     Question.findOne({
@@ -25,7 +22,6 @@ module.exports.get = function (req, res) {
     });
   }
 };
-
 // create a Question
 module.exports.post = function (req, res) {
   try {
@@ -39,19 +35,18 @@ module.exports.post = function (req, res) {
     newQuestion.save()
       .then(function () {
         res.json(
-          {message: "Inserted class successfully"});
+          {message: "Inserted question result successfully"});
       })
       .error(function (err) {
         console.log(err);
-        res.status(400).json({message: "Invalid class format"});
+        res.status(400).json({message: "Invalid question result format"});
       });
   }
   catch (e) {
     console.log(e);
-    res.status(400).json({message: "Invalid class format"});
+    res.status(400).json({message: "Invalid question result format"});
   }
 };
-
 module.exports.put = function (req, res) {
   try{
     Question.update(
@@ -66,7 +61,7 @@ module.exports.put = function (req, res) {
         where:{id:req.params.id.substring(1)}
       })
       .then(function(){
-        res.json({message: "Question updated."});
+        res.json({message: "Question result updated."});
       })
       .error(function(error){
         res.json({message: "An error occurred"});
@@ -78,16 +73,15 @@ module.exports.put = function (req, res) {
     res.status(400).json({message: "An error occurred."})
   }
 };
-
 module.exports.delete = function (req, res) {
   try {
     Question.destroy({
       where: {id: req.params.id.substring(1)}
     }).then(function (error) {
       if (error == 0)
-        res.json({message: "Question doesn't exist."});
+        res.json({message: "Question result doesn't exist."});
       else
-        res.json({message: "Question was successfully deleted."})
+        res.json({message: "Question result was successfully deleted."})
     });
   }
   catch(e){

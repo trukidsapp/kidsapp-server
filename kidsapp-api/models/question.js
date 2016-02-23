@@ -28,12 +28,8 @@ module.exports = function(sequelize, DataTypes) {
           through : 'QuizQuestion',
           timestamps : false
         });
-
        Question.hasMany(models.Answer);
-
-       Question.hasMany(models.QuestionResult);
-
-
+       Question.hasMany(models.Result);
       }
     }
 

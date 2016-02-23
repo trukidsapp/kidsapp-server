@@ -1,10 +1,6 @@
-/**
- * Created by darkhobbo on 2/22/2016.
- */
-
 var Quiz = require('../models').Quiz;
 
-// get all Quizs
+// get all Quizzes
 module.exports.get = function (req, res) {
   console.log(req.params.id);
   if (req.params.id != null) {
@@ -20,8 +16,8 @@ module.exports.get = function (req, res) {
   else {
     Quiz.findAll({
       //include: [ models.Quiz ]
-    }).then(function (Quizs) {
-      res.json(Quizs);
+    }).then(function (Quizzes) {
+      res.json(Quizzes);
     });
   }
 };
@@ -30,25 +26,22 @@ module.exports.get = function (req, res) {
 module.exports.post = function (req, res) {
   try {
     var newQuiz = Quiz.build({
-      subject: req.body.subject,
-      difficulty: req.body.difficulty,
-      hint: req.body.hint,
-      type: req.body.type,
-      text: req.body.text
+      quizName: req.body.quizName,
+      gradeLevel: req.body.gradeLevel
     });
     newQuiz.save()
       .then(function () {
         res.json(
-          {message: "Inserted class successfully"});
+          {message: "Inserted quiz successfully"});
       })
       .error(function (err) {
         console.log(err);
-        res.status(400).json({message: "Invalid class format"});
+        res.status(400).json({message: "Invalid quiz format"});
       });
   }
   catch (e) {
     console.log(e);
-    res.status(400).json({message: "Invalid class format"});
+    res.status(400).json({message: "Invalid quiz format"});
   }
 };
 
@@ -56,11 +49,8 @@ module.exports.put = function (req, res) {
   try{
     Quiz.update(
       {
-        subject: req.body.subject,
-        difficulty: req.body.difficulty,
-        hint: req.body.hint,
-        type: req.body.type,
-        text: req.body.text
+        quizName: req.body.quizName,
+        gradeLevel: req.body.gradeLevel
       },
       {
         where:{id:req.params.id.substring(1)}
