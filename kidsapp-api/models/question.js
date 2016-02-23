@@ -1,5 +1,3 @@
-'use stict';
-
 module.exports = function(sequelize, DataTypes) {
   var Question = sequelize.define("Question", {
     subject : {
@@ -17,6 +15,10 @@ module.exports = function(sequelize, DataTypes) {
     type : {
       type : DataTypes.STRING,
       allowNull : false
+    },
+    text : {
+      type : DataTypes.STRING,
+      allowNull : false
     }
   }, {
     timestamps : false,
@@ -26,12 +28,8 @@ module.exports = function(sequelize, DataTypes) {
           through : 'QuizQuestion',
           timestamps : false
         });
-
        Question.hasMany(models.Answer);
-
-       Question.hasMany(models.QuestionResult);
-
-
+       Question.hasMany(models.Result);
       }
     }
 

@@ -1,7 +1,5 @@
-'use stict';
-
 module.exports = function(sequelize, DataTypes) {
-  var QuestionResult = sequelize.define("QuestionResult", {
+  var Result = sequelize.define("Result", {
     startTime : {
       type : DataTypes.DATE,
       allowNull : false
@@ -21,12 +19,10 @@ module.exports = function(sequelize, DataTypes) {
     timestamps : false,
     classMethods : {
       associate : function (models) {
-        QuestionResult.belongsTo(models.Question);
-        QuestionResult.belongsTo(models.Student);
+        Result.belongsTo(models.Question);
+        Result.belongsTo(models.Student);
       }
     }
-
   });
-
-  return QuestionResult;
+  return Result;
 };
