@@ -14,11 +14,11 @@ var port = process.env.RESTPORT || 8080;
 
 var router = express.Router();
 
-router.use(function(req, res, next) {
-	next();
-});
+// route to authenticate with token
+router.post("/authenticate", require('./routes/authenticate.js').post);
 
-app.use('/api', router);
+// check token passed with requests
+router.use(require('./tokenValidator.js'));
 
 // Student Routes.
 router.get('/classes/:classId/students', require('./routes/student.js').getAll);
@@ -65,6 +65,8 @@ router.get('/answer:id', require('./routes/answer.js').get);
 router.post('/answer', require('./routes/answer.js').post);
 router.delete('/answer:id', require('./routes/answer.js').delete);
 router.put('/answer:id', require('./routes/answer.js').put);
+
+app.use('/api', router);
 
 models.sequelize.query('SET FOREIGN_KEY_CHECKS = 0').then(function() {
   models.sequelize.sync({force: false}).then(startServer).error(function (err) {
