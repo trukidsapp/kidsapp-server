@@ -20,20 +20,19 @@ router.use(function(req, res, next) {
 
 app.use('/api', router);
 
-// TODO /classes/:classId/students
 // Student Routes.
-router.get('/students', require('./routes/student.js').get);
-router.get('/students/:id', require('./routes/student.js').get);
-router.post('/students', require('./routes/student.js').post);
-router.delete('/students/:id', require('./routes/student.js').delete);
-router.put('/students/:id', require('./routes/student.js').put);
+router.get('/classes/:classId/students', require('./routes/student.js').getAll);
+router.get('/classes/:classId/students/:studentId', require('./routes/student.js').getById);
+router.post('/classes/:classId/students', require('./routes/student.js').post);
+router.delete('/classes/:classId/students/:studentId', require('./routes/student.js').delete);
+router.put('/classes/:classId/students/:studentId', require('./routes/student.js').put);
 
 // Class Routes.
-router.get('/class', require('./routes/class.js').get);
-router.get('/class:id', require('./routes/class.js').get);
-router.post('/class', require('./routes/class.js').post);
-router.delete('/class:id', require('./routes/class.js').delete);
-router.put('/class:id', require('./routes/class.js').put);
+router.get('/classes/', require('./routes/class.js').getAll);
+router.get('/classes/:id', require('./routes/class.js').getById);
+router.post('/classes', require('./routes/class.js').post);
+router.delete('/classes/:id', require('./routes/class.js').delete);
+router.put('/classes/:id', require('./routes/class.js').put);
 // Question Routes.
 router.get('/question', require('./routes/question.js').get);
 router.get('/question:id', require('./routes/question.js').get);
