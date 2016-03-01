@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
@@ -33,18 +35,21 @@ router.get('/classes/:id', require('./routes/class.js').getById);
 router.post('/classes', require('./routes/class.js').post);
 router.delete('/classes/:id', require('./routes/class.js').delete);
 router.put('/classes/:id', require('./routes/class.js').put);
+
 // Question Routes.
 router.get('/question', require('./routes/question.js').get);
 router.get('/question:id', require('./routes/question.js').get);
 router.post('/question', require('./routes/question.js').post);
 router.delete('/question:id', require('./routes/question.js').delete);
 router.put('/question:id', require('./routes/question.js').put);
-// Quizzes Routes.
+
+// Quiz Routes.
 router.get('/quiz', require('./routes/quiz.js').get);
 router.get('/quiz:id', require('./routes/quiz.js').get);
 router.post('/quiz', require('./routes/quiz.js').post);
 router.delete('/quiz:id', require('./routes/quiz.js').delete);
 router.put('/quiz:id', require('./routes/quiz.js').put);
+
 // Question Results Routes.
 router.get('/result', require('./routes/result.js').get);
 router.get('/result:id', require('./routes/result.js').get);
@@ -59,6 +64,7 @@ router.get('/teachers/:id', require('./routes/teacher.js').get);
 router.post('/teachers', require('./routes/teacher.js').post);
 router.delete('/teachers/:id', require('./routes/teacher.js').delete);
 router.put('/teachers/:id', require('./routes/teacher.js').put);
+
 // Answer Routes.
 router.get('/answer', require('./routes/answer.js').get);
 router.get('/answer:id', require('./routes/answer.js').get);
