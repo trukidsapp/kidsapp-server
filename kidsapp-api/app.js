@@ -16,6 +16,10 @@ var port = process.env.RESTPORT || 8080;
 
 var router = express.Router();
 
+// allow CORS
+var cors = require('cors');
+app.use(cors());
+
 // route to authenticate with token
 router.post("/authenticate", require('./routes/authenticate.js').post);
 
