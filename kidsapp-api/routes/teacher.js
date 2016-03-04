@@ -1,34 +1,37 @@
 var Teacher = require('../models').Teacher;
 
 // get teachers, all and by id
-module.exports.get = function (req, res) {
-  if (req.params.id) {
-    Teacher.findOne({
-      where: {
-        username: req.params.id//Teacher
-      }
-    }).then(function (foundTeacher) {
-      if (foundTeacher == null) {
-        res.status(404).json({message: "teacher not found"});
-      }
-      else {
-        // TODO only return fields we need? password?
-        res.json(foundTeacher);
-      }
-    });
-  }
-  else {
-    Teacher.findAll({
-    }).then(function (foundTeachers) {
-      if (foundTeachers.length === 0) {
-        res.status(404).json({message: "no teachers found"});
-      }
-      else {
-        // TODO only return fields we need? password?
-        res.json(foundTeachers);
-      }
-    });
-  }
+module.exports.getAll = function (req, res) {
+  Teacher.findAll({
+  }).then(function (foundTeachers) {
+    if (foundTeachers.length === 0) {
+      res.status(404).json({message: "No Teacher found"});
+    }
+    else {
+      // TODO only return fields we need? password?
+      res.json(foundTeachers);
+    }
+  });
+};
+
+module.exports.getById = function (req, res) {
+  Teacher.findOne({
+    where: {
+      username: req.params.id//Teacher
+    }
+  }).then(function (teacher) {
+    if (!teacher) {
+      res.status(404).json({message: "Teacher not found"});
+    }
+    else {
+      res.json({
+        "username": teacher.username,
+        "lastName": teacher.lastName,
+        "firstName": teacher.firstName,
+        "email": teacher.email
+      });
+    }
+  });
 };
 
 // create a Teacher
@@ -72,10 +75,10 @@ module.exports.put = function (req, res) {
       })
       .then(function(updated){
         if (updated > 0) {
-          res.json({message: "Student updated"});
+          res.json({message: "Teacher updated"});
         }
         else {
-          res.status(404).json({message:"Student not found"});
+          res.status(404).json({message:"Teacher not found"});
         }
       }).error(function(err) {
       throw err;
