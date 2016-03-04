@@ -37,27 +37,29 @@ router.delete('/classes/:id', require('./routes/class.js').delete);
 router.put('/classes/:id', require('./routes/class.js').put);
 
 // Question Routes.
-router.get('/question', require('./routes/question.js').get);
-router.get('/question:id', require('./routes/question.js').get);
-router.post('/question', require('./routes/question.js').post);
-router.delete('/question:id', require('./routes/question.js').delete);
-router.put('/question:id', require('./routes/question.js').put);
+router.get('/questions', require('./routes/question.js').get);
+router.get('/questions/:id', require('./routes/question.js').get);
+router.post('/questions', require('./routes/question.js').post);
+router.delete('/questions/:id', require('./routes/question.js').delete);
+router.put('/questions/:id', require('./routes/question.js').put);
 
 // Quiz Routes.
-router.get('/quiz', require('./routes/quiz.js').get);
-router.get('/quiz:id', require('./routes/quiz.js').get);
-router.post('/quiz', require('./routes/quiz.js').post);
-router.delete('/quiz:id', require('./routes/quiz.js').delete);
-router.put('/quiz:id', require('./routes/quiz.js').put);
+router.get('/quizzes', require('./routes/quiz.js').get);
+router.get('/quizzes/:id', require('./routes/quiz.js').get);
+router.post('/quizzes', require('./routes/quiz.js').post);
+router.delete('/quizzes/:id', require('./routes/quiz.js').delete);
+router.put('/quizzes/:id', require('./routes/quiz.js').put);
+router.put('/quizzes/:quizId/questions/:questionId', require('./routes/quiz.js').putQuizQuestion);
 
 // Question Results Routes.
-router.get('/result', require('./routes/result.js').get);
-router.get('/result:id', require('./routes/result.js').get);
-router.post('/result', require('./routes/result.js').post);
-router.delete('/result:id', require('./routes/result.js').delete);
-router.put('/result:id', require('./routes/result.js').put);
+router.get('/results', require('./routes/result.js').get);
+router.get('/results/:id', require('./routes/result.js').get);
+router.post('/results', require('./routes/result.js').post);
+router.delete('/results/:id', require('./routes/result.js').delete);
+router.put('/results/:id', require('./routes/result.js').put);
 
 // TODO /classes/:classId/teachers
+// TODO add ability to link quizzes, questions, answers, results
 // Teacher Routes.
 router.get('/teachers', require('./routes/teacher.js').get);
 router.get('/teachers/:id', require('./routes/teacher.js').get);
@@ -66,11 +68,11 @@ router.delete('/teachers/:id', require('./routes/teacher.js').delete);
 router.put('/teachers/:id', require('./routes/teacher.js').put);
 
 // Answer Routes.
-router.get('/answer', require('./routes/answer.js').get);
-router.get('/answer:id', require('./routes/answer.js').get);
-router.post('/answer', require('./routes/answer.js').post);
-router.delete('/answer:id', require('./routes/answer.js').delete);
-router.put('/answer:id', require('./routes/answer.js').put);
+router.get('/answers', require('./routes/answer.js').get);
+router.get('/answers/:id', require('./routes/answer.js').get);
+router.post('/answers', require('./routes/answer.js').post);
+router.delete('/answers/:id', require('./routes/answer.js').delete);
+router.put('/answers/:id', require('./routes/answer.js').put);
 
 app.use('/api', router);
 
