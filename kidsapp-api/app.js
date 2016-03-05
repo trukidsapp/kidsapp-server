@@ -24,7 +24,7 @@ var router = express.Router();
 // TODO Uncomment below.
 //router.use(require('./tokenValidator.js'));
 
-// TODO: confirm Class routes functional and tested. COMPLETED.
+// TODO: confirm Class routes functional and tested. COMPLETED and VERIFIED.
 // Class Routes.
 router.get('/teachers/:teacherId/classes', require('./routes/class.js').getAll);
 router.get('/teachers/:teacherId/classes/:classId', require('./routes/class.js').getById);
@@ -73,7 +73,7 @@ router.delete('/quizzes/:quizId', require('./routes/quiz.js').delete);
 router.put('/quizzes/:quizId', require('./routes/quiz.js').put);
 //router.put('/quizzes/:quizId/questions/:questionId', require('./routes/quiz.js').putQuizQuestion);
 
-// TODO: confirm Teacher routes functional and tested. COMPLETED.
+// TODO: confirm Teacher routes functional and tested. COMPLETED and VERIFIED.
 // Teacher Routes.
 router.get('/teachers', require('./routes/teacher.js').getAll);
 router.get('/teachers/:teacherId', require('./routes/teacher.js').getById);
