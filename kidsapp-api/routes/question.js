@@ -11,7 +11,7 @@ module.exports.getAll = function (req, res) {
 module.exports.getById = function (req, res) {
   Question.findOne({
     where: {
-      id: req.params.id//Question
+      id: req.params.questionId//Question
     }
   }).then(function (foundQuestion) {
     res.json(foundQuestion);
@@ -39,7 +39,7 @@ module.exports.post = function (req, res) {
   }
   catch (e) {
     console.log(e);
-    res.status(400).json({message: "Invalid question format"});
+    res.status(500).json({message: "Invalid question format"});
   }
 };
 
@@ -54,7 +54,7 @@ module.exports.put = function (req, res) {
         text: req.body.text
       },
       {
-        where:{id:req.params.id}
+        where:{id:req.params.questionId}
       })
       .then(function(){
         res.json({message: "Question updated."});
@@ -66,14 +66,14 @@ module.exports.put = function (req, res) {
   }
   catch(e){
     console.log(e);
-    res.status(400).json({message: "An error occurred."})
+    res.status(500).json({message: "An error occurred."})
   }
 };
 
 module.exports.delete = function (req, res) {
   try {
     Question.destroy({
-      where: {id: req.params.id}
+      where: {id: req.params.questionId}
     }).then(function (error) {
       if (error == 0)
         res.json({message: "Question doesn't exist."});
@@ -83,6 +83,6 @@ module.exports.delete = function (req, res) {
   }
   catch(e){
     console.log(e);
-    res.status(400).json({message: "An error occurred."})
+    res.status(500).json({message: "An error occurred."})
   }
 };

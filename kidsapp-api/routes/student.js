@@ -17,8 +17,8 @@ module.exports.getAll = function (req, res) {
       students.forEach(function(val, i, students) {
         responseObj.push({
           username : students[i].dataValues.username,
-          firstName : students[i].dataValues.firstName,
           lastName : students[i].dataValues.lastName,
+          firstName : students[i].dataValues.firstName,
           classId : students[i].dataValues.classId
         });
       });
