@@ -40,7 +40,7 @@ router.post('/classes/:classId/students', require('./routes/student.js').post);
 router.delete('/classes/:classId/students/:studentId', require('./routes/student.js').delete);
 router.put('/classes/:classId/students/:studentId', require('./routes/student.js').put);
 
-// TODO: confirm Question routes functional and tested.
+// TODO: confirm Question routes functional and tested. COMPLETED and VERIFIED.
 // Question Routes.
 router.get('/questions', require('./routes/question.js').getAll);
 router.get('/questions/:questionId', require('./routes/question.js').getById);
@@ -48,7 +48,7 @@ router.post('/questions', require('./routes/question.js').post);
 router.delete('/questions/:questionId', require('./routes/question.js').delete);
 router.put('/questions/:questionId', require('./routes/question.js').put);
 
-// TODO: confirm Answer routes functional and tested.
+// TODO: confirm Answer routes functional and tested. COMPLETED and VERIFIED.
 // Answer Routes.
 router.get('/questions/:questionId/answers', require('./routes/answer.js').getAll);
 router.get('/questions/:questionId/answers/:answerId', require('./routes/answer.js').getById);
