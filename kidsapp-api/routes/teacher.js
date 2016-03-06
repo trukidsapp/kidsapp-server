@@ -1,6 +1,5 @@
 var Teacher = require('../models').Teacher;
 
-// get teachers, all and by id
 module.exports.getAll = function (req, res) {
   Teacher.findAll({
   }).then(function (teachers) {
@@ -62,7 +61,7 @@ module.exports.post = function (req, res) {
       .catch(function(err){
         res.status(400).json(err.errors);
       });
-    }
+  }
   catch (e) {
     console.log(e);
     res.status(500).json({message: "An error occurred."});

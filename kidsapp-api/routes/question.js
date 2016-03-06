@@ -1,20 +1,32 @@
 var Question = require('../models').Question;
 
-// get all questions
 module.exports.getAll = function (req, res) {
   Question.findAll({
-  }).then(function (Questions) {
-    res.json(Questions);
+  }).then(function (questions) {
+    if(questions.length === 0){
+      res.status(404).json({message: "No questions found"});
+    }
+    else{
+      res.json(questions);
+    }
+  })
+  .catch(function(err){
+    res.status(400).json(err.errors);
   });
 };
 
 module.exports.getById = function (req, res) {
-  Question.findOne({
-    where: {
-      id: req.params.questionId//Question
+  Question.findById(req.params.questionId)
+  .then(function (question) {
+    if(!question){
+      res.status(404).json({message: "Question not found"});
     }
-  }).then(function (foundQuestion) {
-    res.json(foundQuestion);
+    else{
+      res.json(question);
+    }
+  })
+  .catch(function(err){
+    res.status(400).json(err.errors);
   });
 };
 
@@ -32,14 +44,13 @@ module.exports.post = function (req, res) {
         res.json(
           {message: "Inserted question successfully"});
       })
-      .error(function (err) {
-        console.log(err);
-        res.status(400).json({message: "Invalid question format"});
+      .catch(function(err){
+        res.status(400).json(err.errors);
       });
   }
   catch (e) {
     console.log(e);
-    res.status(500).json({message: "Invalid question format"});
+    res.status(500).json({message: "An error occurred."});
   }
 };
 
@@ -56,12 +67,16 @@ module.exports.put = function (req, res) {
       {
         where:{id:req.params.questionId}
       })
-      .then(function(){
-        res.json({message: "Question updated."});
+      .then(function(updated){
+        if (updated > 0 ){
+          res.json({message: "Question updated."});
+        }
+        else{
+          res.status(404).json({message:"Question not found"});
+        }
       })
-      .error(function(error){
-        res.json({message: "An error occurred"});
-        console.log("Error message:" + error);
+      .catch(function(err){
+        res.status(400).json(err.errors);
       });
   }
   catch(e){
@@ -74,11 +89,16 @@ module.exports.delete = function (req, res) {
   try {
     Question.destroy({
       where: {id: req.params.questionId}
-    }).then(function (error) {
-      if (error == 0)
+    }).then(function (deleteResult) {
+      if (deleteResult === 0){
         res.json({message: "Question doesn't exist."});
-      else
+      }
+      else{
         res.json({message: "Question was successfully deleted."})
+      }
+    })
+    .catch(function(err){
+      res.status(400).json(err.errors);
     });
   }
   catch(e){

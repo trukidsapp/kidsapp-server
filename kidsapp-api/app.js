@@ -32,7 +32,7 @@ router.post('/teachers/:teacherId/classes', require('./routes/class.js').post);
 router.delete('/teachers/:teacherId/classes/:classId', require('./routes/class.js').delete);
 router.put('/teachers/:teacherId/classes/:classId', require('./routes/class.js').put);
 
-// TODO: confirm Student routes functional and tested.
+// TODO: confirm Student routes functional and tested. COMPLETED and VERIFIED.
 // Student Routes.
 router.get('/classes/:classId/students', require('./routes/student.js').getAll);
 router.get('/classes/:classId/students/:studentId', require('./routes/student.js').getById);

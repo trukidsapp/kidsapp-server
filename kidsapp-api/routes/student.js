@@ -143,6 +143,8 @@ module.exports.put = function (req, res) {
   }
 };
 
+// TODO requires update password route.
+
 module.exports.delete = function (req, res) {
   try {
     Class.findById(req.params.classId)
