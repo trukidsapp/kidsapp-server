@@ -2,12 +2,11 @@ var Quiz = require('../models').Quiz;
 
 // get all Quizzes
 module.exports.get = function (req, res) {
-  console.log(req.params.id);
-  if (req.params.id != null) {
+  if (req.params.quizId != null) {
     Quiz.findOne({
       //include: [ models.Quiz ]
       where: {
-        id: req.params.id.substring(1)//Quiz
+        id: req.params.quizId//Quiz
       }
     }).then(function (foundQuiz) {
       res.json(foundQuiz);
@@ -53,7 +52,7 @@ module.exports.put = function (req, res) {
         gradeLevel: req.body.gradeLevel
       },
       {
-        where:{id:req.params.id.substring(1)}
+        where:{id:req.params.quizId}
       })
       .then(function(){
         res.json({message: "Quiz updated."});
@@ -72,7 +71,7 @@ module.exports.put = function (req, res) {
 module.exports.delete = function (req, res) {
   try {
     Quiz.destroy({
-      where: {id: req.params.id.substring(1)}
+      where: {id: req.params.quizId}
     }).then(function (error) {
       if (error == 0)
         res.json({message: "Quiz doesn't exist."});

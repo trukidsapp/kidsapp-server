@@ -10,6 +10,9 @@ module.exports.getAll = function (req, res) {
       }
     }).then(function (Results) {
       res.json(Results);
+    })
+    .catch(function(err){
+      res.status(400).json(err.errors);
     });
   }
   catch (e) {
