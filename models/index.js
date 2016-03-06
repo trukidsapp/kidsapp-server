@@ -10,15 +10,15 @@ var path      = require('path');
 var Sequelize = require('sequelize');
 var basename  = path.basename(module.filename);
 var db        = {};
- // TODO hide db conifg
-var database = 'kidsappdb';
-// Saving these as local environment variables.
-var user = process.env.MYSQLDBACNT;
-var password = process.env.MYSQLDBPW;
+
+var database = process.env.KIDSAPPDBNAME;
+var user = process.env.KIDSAPPDBUSER;
+var password = process.env.KIDSAPPDBPW;
 var dbhost = 'localhost';
-var dbport = 3306;
+var dbport = process.env.KIDSAPPDBPORT;
 
 var sequelize = new Sequelize(database, user, password, {
+  dialect : 'postgres',
   host : dbhost,
   port : dbport
 });
