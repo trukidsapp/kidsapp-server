@@ -19,15 +19,15 @@ module.exports.getAll = function (req, res) {
       });
       res.json(responseObj);
     }
+  })
+  .catch(function(err){
+    res.status(400).json(err.errors);
   });
 };
 
 module.exports.getById = function (req, res) {
-  Teacher.findOne({
-    where: {
-      username: req.params.teacherId//Teacher
-    }
-  }).then(function (teacher) {
+  Teacher.findById(req.params.teacherId)
+  .then(function (teacher) {
     if (!teacher) {
       res.status(404).json({message: "Teacher not found"});
     }
@@ -39,34 +39,30 @@ module.exports.getById = function (req, res) {
         "email": teacher.email
       });
     }
+  })
+  .catch(function(err){
+    res.status(400).json(err.errors);
   });
 };
 
-// create a Teacher
 module.exports.post = function (req, res) {
   try {
-    if(!req.body.username || !req.body.lastName || !req.body.firstName || !req.body.password || !req.body.email ) {
-      res.status(400).json({message: "Invalid teacher request format."});
-    }
-    else{
-      var newTeacher = Teacher.build({
-        username : req.body.username,
-        lastName : req.body.lastName,
-        firstName : req.body.firstName,
-        password : req.body.password,
-        email : req.body.email
+    var newTeacher = Teacher.build({
+      username : req.body.username,
+      lastName : req.body.lastName,
+      firstName : req.body.firstName,
+      password : req.body.password,
+      email : req.body.email
+    });
+    newTeacher.save()
+      .then(function () {
+        res.json(
+          {message: "Inserted teacher successfully"});
+      })
+      .catch(function(err){
+        res.status(400).json(err.errors);
       });
-      newTeacher.save()
-        .then(function () {
-          res.json(
-            {message: "Inserted teacher successfully"});
-        })
-        .error(function (err) {
-          console.log(err);
-          res.status(400).json({message: "Invalid teacher format"});
-        });
     }
-  }
   catch (e) {
     console.log(e);
     res.status(500).json({message: "An error occurred."});
@@ -75,31 +71,25 @@ module.exports.post = function (req, res) {
 
 module.exports.put = function (req, res) {
   try{
-    if(!req.body.username || !req.body.lastName || !req.body.firstName || !req.body.email) {
-      res.status(400).json({message: "Invalid teacher request format."});
-    }
-    else{
-      Teacher.update(
-        {
-          username : req.body.username,
-          lastName : req.body.lastName,
-          firstName : req.body.firstName,
-          email : req.body.email
-        },
-        {
-          where:{username:req.params.teacherId}
-        })
-        .then(function(updated){
-          if (updated > 0) {
-            res.json({message: "Teacher updated"});
-          }
-          else {
-            res.status(404).json({message:"Teacher not found"});
-          }
-        }).error(function(err) {
-        throw err;
+    Teacher.update(
+      {
+        username : req.body.username,
+        lastName : req.body.lastName,
+        firstName : req.body.firstName,
+        email : req.body.email
+      },
+      {where:{username:req.params.teacherId}})
+      .then(function(updated){
+        if (updated > 0) {
+          res.json({message: "Teacher updated"});
+        }
+        else {
+          res.status(404).json({message:"Teacher not found"});
+        }
+      })
+      .catch(function(err){
+        res.status(400).json(err.errors);
       });
-    }
   }
   catch(e){
     console.log(e);
@@ -109,28 +99,20 @@ module.exports.put = function (req, res) {
 
 module.exports.updatePassword = function (req, res) {
   try{
-    if(!req.body.password) {
-      res.status(400).json({message: "Invalid teacher request format."});
-    }
-    else{
-      Teacher.update(
-        {
-          password : req.body.password
-        },
-        {
-          where:{username:req.params.teacherId}
-        })
-        .then(function(updated){
-          if (updated > 0) {
-            res.json({message: "Teacher password updated"});
-          }
-          else {
-            res.status(404).json({message:"Teacher not found"});
-          }
-        }).error(function(err) {
-        throw err;
+    Teacher.update(
+      {password : req.body.password},
+      {where:{username:req.params.teacherId}})
+      .then(function(updated){
+        if (updated > 0) {
+          res.json({message: "Teacher password updated"});
+        }
+        else {
+          res.status(404).json({message:"Teacher not found"});
+        }
+      })
+      .catch(function(err){
+        res.status(400).json(err.errors);
       });
-    }
   }
   catch(e){
     console.log(e);
@@ -149,6 +131,9 @@ module.exports.delete = function (req, res) {
       else {
         res.json({message: "Teacher was successfully deleted."});
       }
+    })
+    .catch(function(err){
+      res.status(400).json(err.errors);
     });
   }
   catch(e){
