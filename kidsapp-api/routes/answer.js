@@ -60,10 +60,10 @@ module.exports.post = function (req, res) {
   try {
     Question.findById(req.params.questionId)
       .then(function (foundQuestion) {
-        if(!foundQuestion){
+        if (!foundQuestion) {
           res.status(404).json({message: "Question not found"});
         }
-        else{
+        else {
           var newAnswer = Answer.build({
             isCorrect: req.body.isCorrect,
             answerText: req.body.answerText,
@@ -90,10 +90,10 @@ module.exports.put = function (req, res) {
   try {
     Question.findById(req.params.questionId)
       .then(function (foundQuestion) {
-        if(!foundQuestion){
+        if (!foundQuestion) {
           res.status(404).json({message: "Question not found"});
         }
-        else{
+        else {
           Answer.update(
             {
               isCorrect: req.body.isCorrect,
@@ -124,25 +124,25 @@ module.exports.delete = function (req, res) {
   try {
     Question.findById(req.params.questionId)
       .then(function (foundQuestion) {
-        if(!foundQuestion){
+        if (!foundQuestion) {
           res.status(404).json({message: "Question not found"});
         }
-        else{
+        else {
           Answer.destroy({
-            where: {
-              id: req.params.answerId,
-              QuestionId: req.params.questionId
-            }
-          })
-          .then(function (error) {
-            if (error === 0)
-              res.json({message: "Answer doesn't exist."});
-            else
-              res.json({message: "Answer was successfully deleted."})
-          })
-          .catch(function (err) {
-            res.status(400).json(err.errors);
-          });
+              where: {
+                id: req.params.answerId,
+                QuestionId: req.params.questionId
+              }
+            })
+            .then(function (deleteResult) {
+              if (deleteResult === 0)
+                res.json({message: "Answer doesn't exist."});
+              else
+                res.json({message: "Answer was successfully deleted."})
+            })
+            .catch(function (err) {
+              res.status(400).json(err.errors);
+            });
         }
       });
   }
