@@ -1,4 +1,6 @@
 var Result = require('../models').Result;
+var Question = require('../models').Question;
+var Student = require('../models').Student;
 
 // YYYY-MM-DDThh:mm:ssTZD
 module.exports.getAll = function (req, res) {
@@ -44,28 +46,41 @@ module.exports.getById = function (req, res) {
 // create a Result
 module.exports.post = function (req, res) {
   try {
-    if(!req.body.startTime || !req.body.endTime || !req.body.isCorrect || !req.body.response) {
-      res.status(400).json({message: "Invalid result request format."});
-    }
-    else{
-      var newResult = Result.build({
-        startTime: req.body.startTime,
-        endTime : req.body.endTime,
-        isCorrect : req.body.isCorrect,
-        response : req.body.response,
-        QuestionId : req.params.questionId,
-        StudentUsername : req.params.studentId
+    Question.findById(req.params.questionId)
+      .then(function (foundQuestion){
+        if(!foundQuestion){
+          res.status(404).json({message: "Question not found"});
+        }
+        else{
+          Student.findById(req.params.studentId)
+            .then(function (foundStudent){
+              if(!foundStudent){
+                res.status(404).json({message: "Student not found"});
+              }
+              else{
+                var newResult = Result.build({
+                  startTime: req.body.startTime,
+                  endTime : req.body.endTime,
+                  isCorrect : req.body.isCorrect,
+                  response : req.body.response,
+                  QuestionId : req.params.questionId,
+                  StudentUsername : req.params.studentId
+                });
+                newResult.save()
+                  .then(function () {
+                    res.json(
+                      {message: "Inserted result successfully"});
+                  })
+                  .catch(function (err) {
+                    res.status(400).json(err.errors);
+                  });
+              }
+            });
+        }
       });
-      newResult.save()
-        .then(function () {
-          res.json(
-            {message: "Inserted class successfully"});
-        })
-        .error(function (err) {
-          console.log(err);
-          res.status(400).json({message: "Invalid class format"});
-        });
-    }
+
+
+
   }
   catch (e) {
     console.log(e);
