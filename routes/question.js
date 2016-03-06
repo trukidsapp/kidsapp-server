@@ -1,4 +1,4 @@
-var Question = require('../models').Question;
+var Question = require('../models/index').Question;
 
 module.exports.getAll = function (req, res) {
   Question.findAll()

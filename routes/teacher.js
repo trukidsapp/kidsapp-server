@@ -1,4 +1,4 @@
-var Teacher = require('../models').Teacher;
+var Teacher = require('../models/index').Teacher;
 
 module.exports.getAll = function (req, res) {
   Teacher.findAll({}).then(function (teachers) {

@@ -1,6 +1,6 @@
-var Result = require('../models').Result;
-var Question = require('../models').Question;
-var Student = require('../models').Student;
+var Result = require('../models/index').Result;
+var Question = require('../models/index').Question;
+var Student = require('../models/index').Student;
 
 // YYYY-MM-DDThh:mm:ssTZD
 module.exports.getAll = function (req, res) {
