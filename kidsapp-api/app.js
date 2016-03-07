@@ -66,12 +66,14 @@ router.put('/questions/:questionId/students/:studentId/results/:resultId', requi
 
 // TODO: confirm Quiz routes functional and tested.
 // Quiz Routes.
-router.get('/quizzes', require('./routes/quiz.js').get);
-router.get('/quizzes/:quizId', require('./routes/quiz.js').get);
+router.get('/quizzes', require('./routes/quiz.js').getAll);
+router.get('/quizzes/:quizId', require('./routes/quiz.js').getById);
 router.post('/quizzes', require('./routes/quiz.js').post);
 router.delete('/quizzes/:quizId', require('./routes/quiz.js').delete);
 router.put('/quizzes/:quizId', require('./routes/quiz.js').put);
-//router.put('/quizzes/:quizId/questions/:questionId', require('./routes/quiz.js').putQuizQuestion);
+
+router.put('/quizzes/:quizId/questions/:questionId', require('./routes/quiz.js').putQuestion);
+router.put('/classes/:classId/quizzes/:quizId', require('./routes/quiz.js').putClass);
 
 // TODO: confirm Teacher routes functional and tested. COMPLETED and VERIFIED.
 // Teacher Routes.
