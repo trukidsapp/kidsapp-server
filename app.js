@@ -21,12 +21,10 @@ var cors = require('cors');
 app.use(cors());
 
 // route to authenticate with token
-// TODO Uncomment below.
-//router.post("/authenticate", require('./routes/authenticate.js').post);
+router.post("/authenticate", require('./routes/authenticate.js').post);
 
 // check token passed with requests
-// TODO Uncomment below.
-//router.use(require('./tokenValidator.js'));
+router.use(require('./tokenValidator.js'));
 
 // Class Routes.
 router.get('/teachers/:teacherId/classes', require('./routes/class.js').getAll);
