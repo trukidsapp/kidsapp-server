@@ -20,7 +20,10 @@ var dbport = process.env.KIDSAPPDBPORT;
 var sequelize = new Sequelize(database, user, password, {
   dialect : 'postgres',
   host : dbhost,
-  port : dbport
+  port : dbport,
+  dialectOptions: {
+    ssl: true
+  }
 });
 
 fs
