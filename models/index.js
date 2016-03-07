@@ -18,6 +18,11 @@ var dbhost = process.env.KIDSAPPDBHOST;
 var dbport = process.env.KIDSAPPDBPORT;
 var isSSL = process.env.NODE_ENV === 'production';
 
+console.log(database);
+console.log(user);
+console.log(password)
+console.log(dbhost)
+console.log(dbport)
 console.log(isSSL)
 
 var sequelize = new Sequelize(database, user, password, {
