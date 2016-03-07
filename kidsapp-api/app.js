@@ -73,7 +73,8 @@ router.delete('/quizzes/:quizId', require('./routes/quiz.js').delete);
 router.put('/quizzes/:quizId', require('./routes/quiz.js').put);
 
 router.put('/quizzes/:quizId/questions/:questionId', require('./routes/quiz.js').putQuestion);
-router.put('/classes/:classId/quizzes/:quizId', require('./routes/quiz.js').putClass);
+
+router.put('/classes/:classId/quizzes/:quizId', require('./routes/class.js').putQuiz);
 
 // TODO: confirm Teacher routes functional and tested. COMPLETED and VERIFIED.
 // Teacher Routes.

@@ -1,6 +1,5 @@
 var Quiz = require('../models').Quiz;
 var Question = require('../models').Question;
-var Class = require('../models').Class;
 
 module.exports.getAll = function (req, res) {
   Quiz.findAll()
@@ -98,44 +97,6 @@ module.exports.putQuestion = function (req, res) {
                 question.addQuiz(req.params.quizId)
                   .then(function(){
                     res.json({message: "Question associated with quiz."});
-                  })
-                  .catch(function(err){
-                    res.status(400).json(err.errors);
-                  });
-              }
-            })
-            .catch(function(err){
-              res.status(400).json(err.errors);
-            });
-        }
-      })
-      .catch(function(err){
-        res.status(400).json(err.errors);
-      });
-  }
-  catch(e){
-    console.log(e);
-    res.status(500).json({message: "An error occurred."});
-  }
-};
-
-module.exports.putClass = function (req, res) {
-  try{
-    Class.findById(req.params.classId)
-      .then(function(foundClass){
-        if(!foundClass){
-          res.status(404).json({message: "Class not found"});
-        }
-        else{
-          Quiz.findById(req.params.quizId)
-            .then(function(quiz){
-              if(!quiz){
-                res.status(404).json({message: "Quiz not found"});
-              }
-              else{
-                quiz.addClass(req.params.quizId)
-                  .then(function(){
-                    res.json({message: "Quiz associated with class."});
                   })
                   .catch(function(err){
                     res.status(400).json(err.errors);
