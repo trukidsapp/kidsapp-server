@@ -88,12 +88,10 @@ router.put('/teachers/:teacherId/updatePassword', require('./routes/teacher.js')
 
 app.use('/api', router);
 
-models.sequelize.query('SET FOREIGN_KEY_CHECKS = 0').then(function() {
-  // TODO change force back to FALSE
-  models.sequelize.sync({force: true}).then(startServer).error(function (err) {
-    console.log(err);
-  });
+models.sequelize.sync({force: false}).then(startServer).error(function (err) {
+  console.log(err);
 });
+
 
 function startServer() {
   var server = app.listen(port, function () {

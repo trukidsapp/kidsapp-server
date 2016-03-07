@@ -1,7 +1,7 @@
 'use strict';
 
-var Class = require('../models').Class;
-var Teacher = require('../models').Teacher;
+var Class = require('../models/index').Class;
+var Teacher = require('../models/index').Teacher;
 
 module.exports.getAll = function (req, res) {
   Teacher.findById(req.params.teacherId)

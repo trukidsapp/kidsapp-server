@@ -1,5 +1,5 @@
-var Answer = require('../models').Answer;
-var Question = require('../models').Question;
+var Answer = require('../models/index').Answer;
+var Question = require('../models/index').Question;
 
 module.exports.getAll = function (req, res) {
   Question.findById(req.params.questionId)

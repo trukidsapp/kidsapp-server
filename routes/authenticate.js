@@ -2,8 +2,8 @@
 
 //TODO hash passwords
 
-var Student = require('../models').Student;
-var Teacher = require('../models').Teacher;
+var Student = require('../models/index').Student;
+var Teacher = require('../models/index').Teacher;
 var jwt = require('jsonwebtoken');
 var secret = process.env.KIDSAPPTOKENKEY;
 
