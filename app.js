@@ -62,11 +62,15 @@ router.delete('/questions/:questionId/students/:studentId/results/:resultId', re
 router.put('/questions/:questionId/students/:studentId/results/:resultId', require('./routes/result.js').put);
 
 // Quiz Routes.
-router.get('/quizzes', require('./routes/quiz.js').get);
-router.get('/quizzes/:quizId', require('./routes/quiz.js').get);
+router.get('/quizzes', require('./routes/quiz.js').getAll);
+router.get('/quizzes/:quizId', require('./routes/quiz.js').getById);
 router.post('/quizzes', require('./routes/quiz.js').post);
 router.delete('/quizzes/:quizId', require('./routes/quiz.js').delete);
 router.put('/quizzes/:quizId', require('./routes/quiz.js').put);
+
+router.put('/quizzes/:quizId/questions/:questionId', require('./routes/quiz.js').putQuestion);
+
+router.put('/classes/:classId/quizzes/:quizId', require('./routes/class.js').putQuiz);
 
 // Teacher Routes.
 router.get('/teachers', require('./routes/teacher.js').getAll);

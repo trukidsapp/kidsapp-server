@@ -1,27 +1,36 @@
 var Quiz = require('../models').Quiz;
+var Question = require('../models').Question;
 
-// get all Quizzes
-module.exports.get = function (req, res) {
-  if (req.params.quizId != null) {
-    Quiz.findOne({
-      //include: [ models.Quiz ]
-      where: {
-        id: req.params.quizId//Quiz
+module.exports.getAll = function (req, res) {
+  Quiz.findAll()
+    .then(function (quizzes) {
+      if(quizzes.length === 0){
+        res.status(404).json({message: "No quizzes found"});
       }
-    }).then(function (foundQuiz) {
-      res.json(foundQuiz);
+      else{
+        res.json(quizzes);
+      }
+    })
+    .catch(function(err){
+      res.status(400).json(err.errors);
     });
-  }
-  else {
-    Quiz.findAll({
-      //include: [ models.Quiz ]
-    }).then(function (Quizzes) {
-      res.json(Quizzes);
-    });
-  }
 };
 
-// create a Quiz
+module.exports.getById = function (req, res) {
+  Quiz.findById(req.params.quizId)
+    .then(function(quiz){
+      if(!quiz){
+        res.status(404).json({message: "Quiz not found"});
+      }
+      else{
+        res.json(quiz);
+      }
+    })
+    .catch(function(err){
+      res.status(400).json(err.errors);
+    });
+};
+
 module.exports.post = function (req, res) {
   try {
     var newQuiz = Quiz.build({
@@ -33,14 +42,13 @@ module.exports.post = function (req, res) {
         res.json(
           {message: "Inserted quiz successfully"});
       })
-      .error(function (err) {
-        console.log(err);
-        res.status(400).json({message: "Invalid quiz format"});
+      .catch(function(err){
+        res.status(400).json(err.errors);
       });
   }
   catch (e) {
     console.log(e);
-    res.status(400).json({message: "Invalid quiz format"});
+    res.status(500).json({message: "An error occurred."});
   }
 };
 
@@ -54,17 +62,59 @@ module.exports.put = function (req, res) {
       {
         where:{id:req.params.quizId}
       })
-      .then(function(){
-        res.json({message: "Quiz updated."});
+      .then(function(updated){
+        if(updated > 0 ){
+          res.json({message: "Quiz updated."});
+        }
+        else{
+          res.status(404).json({message:"Quiz not found"});
+        }
       })
-      .error(function(error){
-        res.json({message: "An error occurred"});
-        console.log("Error message:" + error);
+      .catch(function(err){
+        res.status(400).json(err.errors);
       });
   }
   catch(e){
     console.log(e);
-    res.status(400).json({message: "An error occurred."})
+    res.status(500).json({message: "An error occurred."});
+  }
+};
+
+module.exports.putQuestion = function (req, res) {
+  try{
+    Quiz.findById(req.params.quizId)
+      .then(function(quiz){
+        if(!quiz){
+          res.status(404).json({message: "Quiz not found"});
+        }
+        else{
+          Question.findById(req.params.questionId)
+            .then(function(question){
+              if(!question){
+                res.status(404).json({message: "Question not found"});
+              }
+              else{
+                question.addQuiz(req.params.quizId)
+                  .then(function(){
+                    res.json({message: "Question associated with quiz."});
+                  })
+                  .catch(function(err){
+                    res.status(400).json(err.errors);
+                  });
+              }
+            })
+            .catch(function(err){
+              res.status(400).json(err.errors);
+            });
+        }
+      })
+      .catch(function(err){
+        res.status(400).json(err.errors);
+      });
+  }
+  catch(e){
+    console.log(e);
+    res.status(500).json({message: "An error occurred."});
   }
 };
 
@@ -76,11 +126,14 @@ module.exports.delete = function (req, res) {
       if (error == 0)
         res.json({message: "Quiz doesn't exist."});
       else
-        res.json({message: "Quiz was successfully deleted."})
+        res.json({message: "Quiz was successfully deleted."});
     });
   }
   catch(e){
     console.log(e);
-    res.status(400).json({message: "An error occurred."})
+    res.status(500).json({message: "An error occurred."});
   }
 };
+
+
+
