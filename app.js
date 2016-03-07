@@ -86,7 +86,7 @@ models.sequelize.sync({force: false}).then(startServer).error(function (err) {
 
 
 function startServer() {
-  var server = app.listen(port, function () {
-    console.log("API server listening on port " + server.address().port);
+  var server = app.listen(port || 5000, function () {
+    console.log("API server listening on port " + server.address().port || 5000);
   });
 }
