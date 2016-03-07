@@ -14,7 +14,7 @@ var db        = {};
 var database = process.env.KIDSAPPDBNAME;
 var user = process.env.KIDSAPPDBUSER;
 var password = process.env.KIDSAPPDBPW;
-var dbhost = 'localhost';
+var dbhost = process.env.KIDSAPPDBHOST;
 var dbport = process.env.KIDSAPPDBPORT;
 
 var sequelize = new Sequelize(database, user, password, {

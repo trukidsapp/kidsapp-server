@@ -15,10 +15,17 @@ The server can be stopped by running:
 ## Environment variables
 
 ```RESTPORT``` Port number for the API to listen for requests on 
+
 ```KIDSAPPDBNAME``` Database name
+
 ```KIDSAPPDBUSER``` Database username
+
 ```KIDSAPPDBPW``` Database password
+
+```KIDSAPPDBHOST``` Database host
+
 ```KIDSAPPDBPORT``` Database port
+
 ```KIDSAPPTOKENKEY``` Key for signing JSON Web Tokens
 
 ## Authentication
