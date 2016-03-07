@@ -12,7 +12,7 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.RESTPORT || 8080;
+var port = process.env.PORT || 5000;
 
 var router = express.Router();
 
@@ -86,7 +86,7 @@ models.sequelize.sync({force: false}).then(startServer).error(function (err) {
 
 
 function startServer() {
-  var server = app.listen(port || 5000, function () {
-    console.log("API server listening on port " + server.address().port || 5000);
+  var server = app.listen(port, function () {
+    console.log("API server listening on port " + port);
   });
 }
