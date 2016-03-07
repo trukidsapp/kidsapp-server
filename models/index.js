@@ -16,13 +16,16 @@ var user = process.env.KIDSAPPDBUSER;
 var password = process.env.KIDSAPPDBPW;
 var dbhost = process.env.KIDSAPPDBHOST;
 var dbport = process.env.KIDSAPPDBPORT;
+var isSSL = process.env.NODE_ENV === 'production';
+
+console.log(isSSL)
 
 var sequelize = new Sequelize(database, user, password, {
   dialect : 'postgres',
   host : dbhost,
   port : dbport,
   dialectOptions: {
-    ssl: true
+    ssl: isSSL
   }
 });
 

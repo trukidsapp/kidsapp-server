@@ -14,6 +14,8 @@ The server can be stopped by running:
 
 ## Environment variables
 
+```NODE_ENV``` set to `'development'` in development environment, `'production'` in production
+ 
 ```RESTPORT``` Port number for the API to listen for requests on 
 
 ```KIDSAPPDBNAME``` Database name
