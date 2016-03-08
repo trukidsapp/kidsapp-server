@@ -2,15 +2,19 @@
 
 REST API backend for Kids App
 
-## Starting and stopping the API server
+## Deploying the kidsapp server
 
-PM2 (https://github.com/Unitech/pm2) is used to manage the node process. With PM2 installed, from the directory the server is located in, the server can be started by running:
+While the server runs really well on Heroku, it can be deployed as a node server on the platform of your choice. 
+The steps required to deploy on your own server may vary, but should include:
 
-```pm2 start app.js --name kidsapp-api```
+* Ensuring you have a database configured for the API (see "Data Access")
+* Ensuring that you have the required environment variables set for your particular environment (see "Environment Variables")
 
-The server can be stopped by running:
+## Data access
 
-```pm2 stop kidsapp-api```
+The API uses the Sequelize ORM (on top of PostgreSQL, currently), and can be modified for use on other SQL database management systems with minmal code changes. Simply replace the Postgres driver node module with the one of your choice that works with Sequelize, and modify the Seqelize config in `/models/index.js` to suit.
+
+For more about how to use Sequelize to manage our model, check out http://docs.sequelizejs.com/en/latest/
 
 ## Environment variables
 
@@ -29,6 +33,14 @@ The server can be stopped by running:
 ```KIDSAPPDBPORT``` Database port
 
 ```KIDSAPPTOKENKEY``` Key for signing JSON Web Tokens
+
+##Running the Server
+Once your environment is properly configured:
+
+1. Install dependencies with `npm install`
+2. Start the server with `npm start`
+
+#API Routes
 
 ## Authentication
 
