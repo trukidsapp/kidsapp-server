@@ -96,9 +96,10 @@ module.exports.put = function (req, res) {
         if (!foundTeacher) {
           res.status(404).json({message: "Teacher not found"});
         }
-        else if (req.params.teacherId != req.body.teacherUsername) {
+        else if (req.params.teacherId != req.body.TeacherUsername) {
+          //change teacher for class, body contains teacher other than the current one
           console.log("New teacher updated.");
-          return Teacher.findById(req.body.teacherUsername)
+          return Teacher.findById(req.body.TeacherUsername)
             .then(function (foundTeacherTwo) {
               if (!foundTeacherTwo) {
                 res.status(404).json({message: "Teacher to update not found."});
@@ -108,7 +109,7 @@ module.exports.put = function (req, res) {
                   {
                     className: req.body.className,
                     grade: req.body.grade,
-                    TeacherUsername: req.body.teacherUsername
+                    TeacherUsername: req.body.TeacherUsername
                   },
                   {
                     where: {
@@ -133,8 +134,7 @@ module.exports.put = function (req, res) {
           return Class.update(
             {
               className: req.body.className,
-              grade: req.body.grade,
-              TeacherUsername: req.body.teacherUsername
+              grade: req.body.grade
             },
             {
               where: {
