@@ -88,7 +88,7 @@ module.exports.putQuestion = function (req, res) {
           res.status(404).json({message: "Quiz not found"});
         }
         else{
-          Question.findById(req.params.questionId)
+          return Question.findById(req.params.questionId)
             .then(function(question){
               if(!question){
                 res.status(404).json({message: "Question not found"});
