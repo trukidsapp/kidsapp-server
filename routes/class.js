@@ -11,7 +11,7 @@ module.exports.getAll = function (req, res) {
         res.status(404).json({message: "Teacher not found"});
       }
       else {
-        Class.findAll({
+        return Class.findAll({
           where: {
             TeacherUsername: req.params.teacherId
           }
@@ -38,7 +38,7 @@ module.exports.getById = function (req, res) {
         res.status(404).json({message: "Teacher not found"});
       }
       else {
-        Class.findOne({
+        return Class.findOne({
           where: {
             id: req.params.classId,
             TeacherUsername: req.params.teacherId
@@ -72,7 +72,7 @@ module.exports.post = function (req, res) {
             grade: req.body.grade,
             TeacherUsername: req.params.teacherId
           });
-          newClass.save()
+          return newClass.save()
             .then(function () {
               res.json(
                 {message: "Inserted class successfully"});
@@ -91,20 +91,20 @@ module.exports.post = function (req, res) {
 
 module.exports.put = function (req, res) {
   try {
-    Teacher.findById(req.params.teacherId)
+    return Teacher.findById(req.params.teacherId)
       .then(function (foundTeacher) {
         if (!foundTeacher) {
           res.status(404).json({message: "Teacher not found"});
         }
         else if (req.params.teacherId != req.body.teacherUsername) {
           console.log("New teacher updated.");
-          Teacher.findById(req.body.teacherUsername)
+          return Teacher.findById(req.body.teacherUsername)
             .then(function (foundTeacherTwo) {
               if (!foundTeacherTwo) {
                 res.status(404).json({message: "Teacher to update not found."});
               }
               else {
-                Class.update(
+                return Class.update(
                   {
                     className: req.body.className,
                     grade: req.body.grade,
@@ -130,7 +130,7 @@ module.exports.put = function (req, res) {
             })
         }
         else {
-          Class.update(
+          return Class.update(
             {
               className: req.body.className,
               grade: req.body.grade,
@@ -166,13 +166,13 @@ module.exports.put = function (req, res) {
 
 module.exports.putQuiz = function (req, res) {
   try{
-    Class.findById(req.params.classId)
+    return Class.findById(req.params.classId)
       .then(function(foundClass){
         if(!foundClass){
           res.status(404).json({message: "Class not found"});
         }
         else{
-          Quiz.findById(req.params.quizId)
+          return Quiz.findById(req.params.quizId)
             .then(function(quiz){
               if(!quiz){
                 res.status(404).json({message: "Quiz not found"});
@@ -204,13 +204,13 @@ module.exports.putQuiz = function (req, res) {
 
 module.exports.delete = function (req, res) {
   try {
-    Teacher.findById(req.params.teacherId)
+    return Teacher.findById(req.params.teacherId)
       .then(function (foundTeacher) {
         if (!foundTeacher) {
           res.status(404).json({message: "Teacher not found"});
         }
         else {
-          Class.destroy({
+          return Class.destroy({
               where: {
                 id: req.params.classId,
                 TeacherUsername: req.params.teacherId
