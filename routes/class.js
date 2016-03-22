@@ -212,7 +212,6 @@ module.exports.getClassQuizzes = function (req, res) {
         else{
           return foundClass.getQuizzes()
             .then(function(quizzes){
-              console.log("Getting quizzes for a class.");
               if(quizzes.length === 0){
                 res.status(404).json({message: "No quizzes found"});
               }

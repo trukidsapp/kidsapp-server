@@ -120,15 +120,12 @@ module.exports.putQuestion = function (req, res) {
 
 module.exports.getQuizQuestions = function (req, res) {
   try{
-    console.log("Inside getQuizQuestions");
     Quiz.findById(req.params.quizId)
       .then(function(quiz){
         if(!quiz){
           res.status(404).json({message: "Quiz not found"});
         }
         else{
-          console.log("Inside else.");
-          console.log("Quiz:" + quiz);
           return quiz.getQuestions()
             .then(function(questions){
               if(questions.length === 0){
@@ -139,15 +136,11 @@ module.exports.getQuizQuestions = function (req, res) {
               }
             })
             .catch(function(err){
-              console.log("Error in here.");
-              console.log(err.errors);
               res.status(400).json(err.errors);
             });
         }
       })
       .catch(function(err){
-        console.log("Error in here2.");
-        console.log("Errors: " + err.errors);
         res.status(400).json(err.errors);
       });
   }
