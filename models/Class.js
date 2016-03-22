@@ -16,6 +16,10 @@ module.exports = function (sequelize, DataTypes) {
       associate : function (models) {
         Class.belongsTo(models.Teacher);
         Class.hasMany(models.Student);
+        Class.belongsToMany(models.Quiz, {
+          through : 'QuizClass',
+          timestamps : false
+        });
       }
     }
 
