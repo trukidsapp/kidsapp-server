@@ -118,6 +118,38 @@ module.exports.putQuestion = function (req, res) {
   }
 };
 
+module.exports.getQuizQuestions = function (req, res) {
+  try{
+    Quiz.findById(req.params.quizId)
+      .then(function(quiz){
+        if(!quiz){
+          res.status(404).json({message: "Quiz not found"});
+        }
+        else{
+          return quiz.getQuestions()
+            .then(function(questions){
+              if(questions.length === 0){
+                res.status(404).json({message: "No questions found"});
+              }
+              else{
+                res.json(questions);
+              }
+            })
+            .catch(function(err){
+              res.status(400).json(err.errors);
+            });
+        }
+      })
+      .catch(function(err){
+        res.status(400).json(err.errors);
+      });
+  }
+  catch(e){
+    console.log(e);
+    res.status(500).json({message: "An error occurred."});
+  }
+};
+
 module.exports.delete = function (req, res) {
   try {
     Quiz.destroy({

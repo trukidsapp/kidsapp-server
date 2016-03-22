@@ -178,13 +178,45 @@ module.exports.putQuiz = function (req, res) {
                 res.status(404).json({message: "Quiz not found"});
               }
               else{
-                quiz.addClass(req.params.quizId)
+                return foundClass.addQuiz(req.params.quizId)
                   .then(function(){
                     res.json({message: "Quiz associated with class."});
                   })
                   .catch(function(err){
                     res.status(400).json(err.errors);
                   });
+              }
+            })
+            .catch(function(err){
+              res.status(400).json(err.errors);
+            });
+        }
+      })
+      .catch(function(err){
+        res.status(400).json(err.errors);
+      });
+  }
+  catch(e){
+    console.log(e);
+    res.status(500).json({message: "An error occurred."});
+  }
+};
+
+module.exports.getClassQuizzes = function (req, res) {
+  try{
+    return Class.findById(req.params.classId)
+      .then(function(foundClass){
+        if(!foundClass){
+          res.status(404).json({message: "Class not found"});
+        }
+        else{
+          return foundClass.getQuizzes()
+            .then(function(quizzes){
+              if(quizzes.length === 0){
+                res.status(404).json({message: "No quizzes found"});
+              }
+              else{
+                res.json(quizzes);
               }
             })
             .catch(function(err){

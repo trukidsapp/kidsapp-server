@@ -68,9 +68,13 @@ router.post('/quizzes', require('./routes/quiz.js').post);
 router.delete('/quizzes/:quizId', require('./routes/quiz.js').delete);
 router.put('/quizzes/:quizId', require('./routes/quiz.js').put);
 
+// QuizQuestion Routes
 router.put('/quizzes/:quizId/questions/:questionId', require('./routes/quiz.js').putQuestion);
+router.get('/quizzes/:quizId/questions', require('./routes/quiz.js').getQuizQuestions);
 
+// ClassQuiz Routes
 router.put('/classes/:classId/quizzes/:quizId', require('./routes/class.js').putQuiz);
+router.get('/classes/:classId/quizzes', require('./routes/class.js').getClassQuizzes);
 
 // Teacher Routes.
 router.get('/teachers', require('./routes/teacher.js').getAll);

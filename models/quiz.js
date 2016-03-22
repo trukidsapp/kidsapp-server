@@ -18,6 +18,10 @@ module.exports = function (sequelize, DataTypes) {
           through : 'QuizClass',
           timestamps : false
         });
+        Quiz.belongsToMany(models.Question,{
+          through: 'QuizQuestion',
+          timestamps : false
+        });
       }
     }
 
