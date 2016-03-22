@@ -131,8 +131,12 @@ module.exports.getQuizQuestions = function (req, res) {
           console.log("Quiz:" + quiz);
           return quiz.getQuestions()
             .then(function(questions){
-              console.log("Questions found.");
-                
+              if(questions.length === 0){
+                res.status(404).json({message: "No questions found"});
+              }
+              else{
+                res.json(questions);
+              }
             })
             .catch(function(err){
               console.log("Error in here.");
