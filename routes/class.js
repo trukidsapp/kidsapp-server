@@ -202,6 +202,44 @@ module.exports.putQuiz = function (req, res) {
   }
 };
 
+module.exports.removeQuiz = function (req, res) {
+  try{
+    return Class.findById(req.params.classId)
+      .then(function(foundClass){
+        if(!foundClass){
+          res.status(404).json({message: "Class not found"});
+        }
+        else{
+          return Quiz.findById(req.params.quizId)
+            .then(function(quiz){
+              if(!quiz){
+                res.status(404).json({message: "Quiz not found"});
+              }
+              else{
+                return foundClass.removeQuiz(req.params.quizId)
+                  .then(function(){
+                    res.json({message: "Quiz disassociated with class."});
+                  })
+                  .catch(function(err){
+                    res.status(400).json(err.errors);
+                  });
+              }
+            })
+            .catch(function(err){
+              res.status(400).json(err.errors);
+            });
+        }
+      })
+      .catch(function(err){
+        res.status(400).json(err.errors);
+      });
+  }
+  catch(e){
+    console.log(e);
+    res.status(500).json({message: "An error occurred."});
+  }
+};
+
 module.exports.getClassQuizzes = function (req, res) {
   try{
     return Class.findById(req.params.classId)

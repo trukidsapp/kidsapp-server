@@ -76,6 +76,7 @@ router.delete('/quizzes/:quizId/questions/:questionId', require('./routes/quiz.j
 // ClassQuiz Routes
 router.put('/classes/:classId/quizzes/:quizId', require('./routes/class.js').putQuiz);
 router.get('/classes/:classId/quizzes', require('./routes/class.js').getClassQuizzes);
+router.delete('/classes/:classId/quizzes/:quizId', require('./routes/class.js').removeQuiz);
 
 // Teacher Routes.
 router.get('/teachers', require('./routes/teacher.js').getAll);
