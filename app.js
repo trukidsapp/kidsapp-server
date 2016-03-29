@@ -71,6 +71,7 @@ router.put('/quizzes/:quizId', require('./routes/quiz.js').put);
 // QuizQuestion Routes
 router.put('/quizzes/:quizId/questions/:questionId', require('./routes/quiz.js').putQuestion);
 router.get('/quizzes/:quizId/questions', require('./routes/quiz.js').getQuizQuestions);
+router.delete('/quizzes/:quizId/questions/:questionId', require('./routes/quiz.js').removeQuestion);
 
 // ClassQuiz Routes
 router.put('/classes/:classId/quizzes/:quizId', require('./routes/class.js').putQuiz);
