@@ -82,6 +82,7 @@ module.exports.put = function (req, res) {
 
 module.exports.putQuestion = function (req, res) {
   try{
+    console.log("Inside of putQuestion route");
     Quiz.findById(req.params.quizId)
       .then(function(quiz){
         if(!quiz){
@@ -97,6 +98,45 @@ module.exports.putQuestion = function (req, res) {
                 question.addQuiz(req.params.quizId)
                   .then(function(){
                     res.json({message: "Question associated with quiz."});
+                  })
+                  .catch(function(err){
+                    res.status(400).json(err.errors);
+                  });
+              }
+            })
+            .catch(function(err){
+              res.status(400).json(err.errors);
+            });
+        }
+      })
+      .catch(function(err){
+        res.status(400).json(err.errors);
+      });
+  }
+  catch(e){
+    console.log(e);
+    res.status(500).json({message: "An error occurred."});
+  }
+};
+
+module.exports.removeQuestion = function (req, res) {
+  try{
+    console.log("Inside of removeQuestion route");
+    Quiz.findById(req.params.quizId)
+      .then(function(quiz){
+        if(!quiz){
+          res.status(404).json({message: "Quiz not found"});
+        }
+        else{
+          return Question.findById(req.params.questionId)
+            .then(function(question){
+              if(!question){
+                res.status(404).json({message: "Question not found"});
+              }
+              else{
+                question.removeQuiz(req.params.quizId)
+                  .then(function(){
+                    res.json({message: "Question disassociated with quiz."});
                   })
                   .catch(function(err){
                     res.status(400).json(err.errors);
