@@ -72,7 +72,8 @@ function userAuthSuccess(result, userType, res) {
   console.log('AUTH success ' + result.username);
   var user = {
     username: result.username,
-    userType: userType
+    userType: userType,
+    classId: result.ClassId
   };
   // create token
   var token = jwt.sign(user, secret,

@@ -26,9 +26,10 @@ module.exports.getAll = function (req, res) {
                   username: students[i].dataValues.username,
                   lastName: students[i].dataValues.lastName,
                   firstName: students[i].dataValues.firstName,
-                  classId: students[i].dataValues.classId
+                  classId: students[i].dataValues.ClassId
                 });
               });
+              console.log(responseObj);
               res.json(responseObj);
             }
           })
@@ -61,7 +62,7 @@ module.exports.getById = function (req, res) {
                 username: student.username,
                 firstName: student.firstName,
                 lastName: student.lastName,
-                ClassId: student.classId
+                ClassId: student.ClassId
               });
             }
           })
