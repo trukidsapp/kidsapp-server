@@ -55,11 +55,13 @@ router.delete('/questions/:questionId/answers/:answerId', require('./routes/answ
 router.put('/questions/:questionId/answers/:answerId', require('./routes/answer.js').put);
 
 // Results Routes
-router.get('/questions/:questionId/students/:studentId/results', require('./routes/result.js').getAll);
-router.get('/questions/:questionId/students/:studentId/results/:resultId', require('./routes/result.js').getById);
+router.get('/students/:studentId/results', require('./routes/result.js').getAll);
+router.get('/students/:studentId/results/:resultId', require('./routes/result.js').getById);
 router.post('/questions/:questionId/students/:studentId/results', require('./routes/result.js').post);
 router.delete('/questions/:questionId/students/:studentId/results/:resultId', require('./routes/result.js').delete);
 router.put('/questions/:questionId/students/:studentId/results/:resultId', require('./routes/result.js').put);
+
+
 
 // Quiz Routes.
 router.get('/quizzes', require('./routes/quiz.js').getAll);

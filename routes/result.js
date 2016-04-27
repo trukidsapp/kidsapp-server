@@ -5,6 +5,7 @@ var Student = require('../models/index').Student;
 // YYYY-MM-DDThh:mm:ssTZD
 module.exports.getAll = function (req, res) {
   try {
+    /*
     Question.findById(req.params.questionId)
       .then(function (foundQuestion) {
         if (!foundQuestion) {
@@ -31,7 +32,19 @@ module.exports.getAll = function (req, res) {
               }
             });
         }
+      });*/
+
+    Result.findAll({
+      where: {
+        StudentUsername: req.params.studentId
+      }
+    }).then(function (Results) {
+        res.json(Results);
+      })
+      .catch(function (err) {
+        res.status(400).json(err.errors);
       });
+
   }
   catch (e) {
     console.log(e);
