@@ -70,17 +70,77 @@ This token must be passed in an `api-token` header with any subsequent requests 
 ## Routes
 All require a token (see above) for authentication.
 
-###Student
+### Student
 
-####Create a student
+#### Get all students
 
-`POST /students`
+`GET /classes/:classId/students`
 
-Create a student. 
-Example request:
+Gets all students. 
+Request:
 
 ```
-POST http://hostname:8080/api/students
+GET http://HOSTNAME:PORTNUMBER/api/classes/CLASSID/students
+{   
+
+}
+```
+
+Response: 
+
+```
+200 OK
+[
+  {
+    "username": "gregwee",
+    "lastName": "Wee",
+    "firstName": "Greg",
+    "classId": 2
+  },
+  {
+    "username": "tasdasd",
+    "lastName": "Thomas",
+    "firstName": "Master",
+    "classId": 2
+  }
+]
+```
+
+#### Get a student by id
+
+`GET /classes/:classId/students/:studentId`
+
+Get student by id. 
+Request:
+
+```
+GET http://HOSTNAME:PORTNUMBER/api/classes/CLASSID/students/STUDENTID
+{   
+
+}
+```
+
+Response: 
+
+```
+200 OK
+{
+  "username": "gregwee",
+  "firstName": "Greg",
+  "lastName": "Wee",
+  "ClassId": 2
+}
+```
+
+#### Create a student
+
+`POST /classes/:classId/students`
+
+Create a student. 
+Request:
+
+```
+POST http://HOSTNAME:PORTNUMBER/api/classes/CLASSID/students
 {   
 	"username" : "timmy",
 	"firstName" : "Timmy",
@@ -94,21 +154,24 @@ Response:
 ```
 200 OK
 {
-	"message" : "inserted student successfully"
+  "message": "Inserted student successfully"
 }
 ```
 
-####Get all students
+#### Delete a student
 
-`GET /students`
+`POST /classes/:classId/students/:studentId`
 
-Gets all students. 
-Example request:
+Delete a student.
+Request:
 
 ```
-GET http://hostname:8080/api/students
+POST http://HOSTNAME:PORTNUMBER/api/classes/CLASSID/students
 {   
-
+	"username" : "timmy",
+	"firstName" : "Timmy",
+	"lastName" : "Tester",
+	"password" : "Password"
 }
 ```
 
@@ -116,14 +179,11 @@ Response:
 
 ```
 200 OK
-[
-	{
-		"id": 1,
-		"username":"timmy",
-		"lastName":"Tester",
-		"firstName":"Timmy",
-		"password":"Password",
-		"ClassId":null
-	}
-]
+{
+  "message": "Inserted student successfully"
+}
 ```
+
+
+
+
