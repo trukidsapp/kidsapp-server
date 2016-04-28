@@ -61,8 +61,6 @@ router.post('/questions/:questionId/students/:studentId/results', require('./rou
 router.delete('/questions/:questionId/students/:studentId/results/:resultId', require('./routes/result.js').delete);
 router.put('/questions/:questionId/students/:studentId/results/:resultId', require('./routes/result.js').put);
 
-
-
 // Quiz Routes.
 router.get('/quizzes', require('./routes/quiz.js').getAll);
 router.get('/quizzes/:quizId', require('./routes/quiz.js').getById);

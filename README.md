@@ -76,7 +76,6 @@ All require a token (see above) for authentication.
 
 `GET /classes/:classId/students`
 
-Gets all students. 
 Request:
 
 ```
@@ -110,7 +109,6 @@ Response:
 
 `GET /classes/:classId/students/:studentId`
 
-Get student by id. 
 Request:
 
 ```
@@ -136,7 +134,6 @@ Response:
 
 `POST /classes/:classId/students`
 
-Create a student. 
 Request:
 
 ```
@@ -160,18 +157,14 @@ Response:
 
 #### Delete a student
 
-`POST /classes/:classId/students/:studentId`
+`DELETE /classes/:classId/students/:studentId`
 
-Delete a student.
 Request:
 
 ```
-POST http://HOSTNAME:PORTNUMBER/api/classes/CLASSID/students
+DELETE http://HOSTNAME:PORTNUMBER/api/classes/CLASSID/students/STUDENTID
 {   
-	"username" : "timmy",
-	"firstName" : "Timmy",
-	"lastName" : "Tester",
-	"password" : "Password"
+
 }
 ```
 
@@ -180,10 +173,77 @@ Response:
 ```
 200 OK
 {
-  "message": "Inserted student successfully"
+  "message": "Deleted student successfully"
 }
 ```
 
+#### Update a student
+
+`PUT /classes/:classId/students/:studentId`
+
+Request:
+
+```
+PUT http://HOSTNAME:PORTNUMBER/api/classes/CLASSID/students/STUDENTID
+{   
+    "username" : "updatedKingbro",
+    "firstName" : "Bob",
+    "lastName" : "McGoy",
+    "password" : "password1"
+}
+```
+
+Response: 
+
+```
+200 OK
+{
+  "message": "Updated student successfully"
+}
+```
+
+### Classes
+#### Get all classes
+#### Get a class by id
+#### Create a class
+#### Delete a class
+#### Update a class
+
+### Question
+#### Get all questions
+#### Get a question by id
+#### Create a question
+#### Delete a question
+#### Update a question
+
+### Answer
+#### Get all answers for a question
+#### Get specific answer for a question
+#### Create an answer for a question
+#### Delete an answer for a question
+#### Update an answer for a question
+
+### Results
+#### Get all results for a student
+#### Get specific result for a student
+#### Create a result for a question for a student
+#### Delete a result for a question for a student
+#### Update a result for a question for a student
+
+### Teacher
+#### Get all teachers
+#### Get a teacher by id
+#### Create a teacher
+#### Delete a teacher
+#### Update a teacher
+#### Update a teacher's password
+
+### Class Quizzes
+#### Associate a quiz and a class
+#### Get all quizzes associated with a class
+#### 
+
+### Quiz Questions
 
 
 
