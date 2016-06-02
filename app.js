@@ -86,6 +86,9 @@ router.delete('/teachers/:teacherId', require('./routes/teacher.js').delete);
 router.put('/teachers/:teacherId', require('./routes/teacher.js').put);
 router.put('/teachers/:teacherId/updatePassword', require('./routes/teacher.js').updatePassword);
 
+// Feedback Route.
+router.post('/teachers/:teacherId/feedbacks', require('./routes/feedback.js').post);
+
 app.use('/api', router);
 
 models.sequelize.sync({force: false}).then(startServer).error(function (err) {
